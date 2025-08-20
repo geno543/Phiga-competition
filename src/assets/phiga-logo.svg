@@ -1,0 +1,46 @@
+<svg width="400" height="120" viewBox="0 0 400 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Physics symbol icon -->
+  <g transform="translate(20, 20)">
+    <!-- Top circle -->
+    <circle cx="20" cy="8" r="6" stroke="#04BF9D" stroke-width="3" fill="none"/>
+    
+    <!-- Vertical line -->
+    <line x1="20" y1="14" x2="20" y2="24" stroke="#04BF9D" stroke-width="3"/>
+    
+    <!-- Base platform -->
+    <rect x="12" y="24" width="16" height="6" rx="2" stroke="#04BF9D" stroke-width="3" fill="none"/>
+    
+    <!-- Support lines -->
+    <line x1="14" y1="30" x2="14" y2="40" stroke="#04BF9D" stroke-width="3"/>
+    <line x1="26" y1="30" x2="26" y2="40" stroke="#04BF9D" stroke-width="3"/>
+    
+    <!-- U-shaped magnet base -->
+    <path d="M 8 40 L 8 48 Q 8 50 10 50 L 30 50 Q 32 50 32 48 L 32 40" stroke="#04BF9D" stroke-width="3" fill="none"/>
+    
+    <!-- Inner U curve -->
+    <path d="M 14 40 L 14 44 Q 14 46 16 46 L 24 46 Q 26 46 26 44 L 26 40" stroke="#04BF9D" stroke-width="3" fill="none"/>
+  </g>
+  
+  <!-- PHIGA Text -->
+  <g transform="translate(100, 30)">
+    <!-- P -->
+    <path d="M 0 0 L 0 60 M 0 0 L 25 0 Q 35 0 35 15 Q 35 30 25 30 L 0 30" stroke="#04BF9D" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    
+    <!-- H -->
+    <path d="M 50 0 L 50 60 M 80 0 L 80 60 M 50 30 L 80 30" stroke="#04BF9D" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    
+    <!-- I -->
+    <path d="M 95 0 L 95 60 M 90 0 L 100 0 M 90 60 L 100 60" stroke="#04BF9D" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    
+    <!-- G -->
+    <path d="M 140 15 Q 115 0 115 30 Q 115 60 140 45 L 140 30 L 130 30" stroke="#04BF9D" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    
+    <!-- A -->
+    <path d="M 155 60 L 170 0 L 185 60 M 162 40 L 178 40" stroke="#04BF9D" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  
+  <!-- Subtitle -->
+  <text x="100" y="90" font-family="Inter, sans-serif" font-size="14" fill="#027373" font-weight="500">
+    Physics International Gamefield Adventure
+  </text>
+</svg>

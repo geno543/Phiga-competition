@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    font-family: 'Inter', sans-serif;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Poppins', sans-serif;
+  }
+}
+
+@layer utilities {
+  /* 3D Transform Utilities */
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+  
+  .transform-gpu {
+    transform-style: preserve-3d;
+  }
+  
+  .hover\:rotateY-2:hover {
+    transform: rotateY(2deg);
+  }
+  
+  .hover\:rotateX-1:hover {
+    transform: rotateX(1deg);
+  }
+  
+  .hover\:rotateY-5:hover {
+    transform: rotateY(5deg);
+  }
+  
+  .hover\:translateZ-2:hover {
+    transform: translateZ(2px);
+  }
+  
+  .hover\:translateZ-4:hover {
+    transform: translateZ(4px);
+  }
+  
+  .group-hover\/btn\:rotate-180:hover {
+    transform: rotate(180deg);
+  }
+  
+  /* Physics Animation Keyframes */
+   @keyframes float-slow {
+     0%, 100% { transform: translateY(0px) rotate(0deg) scale(1); }
+     33% { transform: translateY(-8px) rotate(120deg) scale(1.05); }
+     66% { transform: translateY(-4px) rotate(240deg) scale(0.95); }
+   }
+   
+   @keyframes float-medium {
+     0%, 100% { transform: translateY(0px) rotate(0deg) scale(1); }
+     25% { transform: translateY(-6px) rotate(90deg) scale(1.1); }
+     50% { transform: translateY(-12px) rotate(180deg) scale(0.9); }
+     75% { transform: translateY(-6px) rotate(270deg) scale(1.05); }
+   }
+   
+   @keyframes float-fast {
+     0%, 100% { transform: translateY(0px) rotate(0deg) scale(1); }
+     20% { transform: translateY(-4px) rotate(72deg) scale(1.08); }
+     40% { transform: translateY(-8px) rotate(144deg) scale(0.92); }
+     60% { transform: translateY(-6px) rotate(216deg) scale(1.12); }
+     80% { transform: translateY(-2px) rotate(288deg) scale(0.96); }
+   }
+   
+   @keyframes orbital-rotation {
+     0% { transform: rotateZ(0deg) rotateY(0deg); }
+     100% { transform: rotateZ(360deg) rotateY(180deg); }
+   }
+   
+   @keyframes molecular-vibration {
+     0%, 100% { transform: scale(1) rotate(0deg); }
+     25% { transform: scale(1.02) rotate(1deg); }
+     50% { transform: scale(0.98) rotate(-1deg); }
+     75% { transform: scale(1.01) rotate(0.5deg); }
+   }
+   
+   @keyframes quantum-pulse {
+     0%, 100% { opacity: 0.3; transform: scale(1); }
+     50% { opacity: 0.8; transform: scale(1.1); }
+   }
+  
+  .animate-float-slow {
+     animation: float-slow 8s ease-in-out infinite;
+   }
+   
+   .animate-float-medium {
+     animation: float-medium 6s ease-in-out infinite;
+   }
+   
+   .animate-float-fast {
+     animation: float-fast 4s ease-in-out infinite;
+   }
+   
+   .animate-orbital {
+     animation: orbital-rotation 12s linear infinite;
+   }
+   
+   .animate-molecular {
+     animation: molecular-vibration 2s ease-in-out infinite;
+   }
+   
+   .animate-quantum {
+     animation: quantum-pulse 3s ease-in-out infinite;
+   }
+}
