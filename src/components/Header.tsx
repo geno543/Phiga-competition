@@ -6,15 +6,13 @@ import {
   FiMoon,
   FiHome,
   FiInfo,
-  FiAward,
   FiFileText,
   FiBarChart,
   FiMail,
   FiStar,
   FiZap,
   FiActivity,
-  FiShield,
-  FiSettings
+  FiShield
 } from 'react-icons/fi';
 import { useTheme } from '../contexts/ThemeContext';
 

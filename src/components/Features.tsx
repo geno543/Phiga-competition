@@ -20,7 +20,7 @@ import {
   FiActivity,
   FiCheckCircle
 } from 'react-icons/fi';
-import { HiOutlineAcademicCap, HiOutlineLightBulb } from 'react-icons/hi2';
+import { HiOutlineLightBulb } from 'react-icons/hi2';
 
 const Features: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);

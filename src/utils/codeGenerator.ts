@@ -43,7 +43,7 @@ export const generateUniqueCode = async (supabase: any): Promise<string> => {
       if (attempts >= maxAttempts) {
         throw new Error('Unable to generate unique code after maximum attempts');
       }
-    } catch (error) {
+    } catch (error: any) {
       // If error is because no matching record found, code is unique
       if (error.code === 'PGRST116') {
         isUnique = true;

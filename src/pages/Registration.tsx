@@ -3,7 +3,6 @@ import { supabase } from '../utils/supabase/client';
 import {
   FiUser,
   FiMail,
-  FiPhone,
   FiGlobe,
   FiBook,
   FiAward,
@@ -126,7 +125,7 @@ const Registration: React.FC = () => {
     setErrorMessage('');
 
     try {
-      const { data, error } = await supabase
+      const { error } = await supabase
         .from('registrations')
         .insert([
           {

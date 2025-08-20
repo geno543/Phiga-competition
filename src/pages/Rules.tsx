@@ -2,22 +2,20 @@ import React, { useEffect, useState } from 'react';
 import {
   FiFileText,
   FiStar,
-  FiZap,
   FiActivity,
   FiShield,
   FiCheckCircle,
   FiClock,
   FiAward,
-  FiUsers,
   FiTarget,
   FiTrendingUp,
   FiAlertTriangle
 } from 'react-icons/fi';
-import { HiOutlineAcademicCap, HiOutlineLightBulb } from 'react-icons/hi2';
+import { HiOutlineAcademicCap } from 'react-icons/hi2';
 
 const Rules: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const [activeSection, setActiveSection] = useState<string | null>(null);
+  const [, setActiveSection] = useState<string | null>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(

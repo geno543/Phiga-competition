@@ -1,5 +1,5 @@
 import React from 'react';
-import { FiPlay, FiClock, FiUsers, FiAward, FiArrowRight, FiZap, FiTarget, FiTrendingUp } from 'react-icons/fi';
+import { FiPlay, FiUsers, FiZap, FiTarget, FiTrendingUp } from 'react-icons/fi';
 import AtomVisualization from './AtomVisualization';
 
 interface HeroProps {

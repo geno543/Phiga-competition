@@ -12,11 +12,11 @@ import {
   FiShield,
   FiCheckCircle
 } from 'react-icons/fi';
-import { HiOutlineAcademicCap, HiOutlineLightBulb, HiOutlineRocketLaunch } from 'react-icons/hi2';
+import { HiOutlineAcademicCap, HiOutlineRocketLaunch } from 'react-icons/hi2';
 
 const About: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const [activeSection, setActiveSection] = useState<string | null>(null);
+  const [, setActiveSection] = useState<string | null>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(

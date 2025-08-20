@@ -3,19 +3,14 @@ import {
   FiAward,
   FiStar,
   FiZap,
-  FiActivity,
-  FiShield,
-  FiCheckCircle,
-  FiClock,
   FiUsers,
   FiTarget,
   FiTrendingUp,
   FiCircle,
   FiHexagon,
-  FiFlag,
-  FiCalendar
+  FiFlag
 } from 'react-icons/fi';
-import { HiOutlineAcademicCap, HiOutlineLightBulb } from 'react-icons/hi2';
+import { HiOutlineAcademicCap } from 'react-icons/hi2';
 
 interface LeaderboardEntry {
   rank: number;
@@ -316,7 +311,7 @@ const Leaderboard: React.FC = () => {
           
           {/* Top 3 Podium */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16 max-w-4xl mx-auto">
-            {leaderboardData.slice(0, 3).map((entry, index) => {
+            {leaderboardData.slice(0, 3).map((_, index) => {
               const positions = [1, 0, 2]; // Center first place
               const actualIndex = positions[index];
               const actualEntry = leaderboardData[actualIndex];

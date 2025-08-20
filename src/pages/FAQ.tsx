@@ -11,7 +11,6 @@ import {
   FiUsers,
   FiGlobe,
   FiAward,
-  FiClock,
   FiBook,
   FiSettings
 } from 'react-icons/fi';

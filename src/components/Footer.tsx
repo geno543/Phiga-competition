@@ -3,9 +3,7 @@ import {
   FiMail, 
   FiExternalLink, 
   FiHeart,
-  FiFacebook,
   FiTwitter,
-  FiInstagram,
   FiLinkedin,
   FiGithub,
   FiZap,
@@ -22,7 +20,7 @@ interface FooterProps {
   setCurrentPage: (page: string) => void;
 }
 
-const Footer: React.FC<FooterProps> = ({ currentPage, setCurrentPage }) => {
+const Footer: React.FC<FooterProps> = ({ setCurrentPage }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [clickCount, setClickCount] = useState(0);
   const [clickTimer, setClickTimer] = useState<NodeJS.Timeout | null>(null);

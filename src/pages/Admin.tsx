@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FiUsers, FiKey, FiMail, FiCheck, FiX, FiEye, FiRefreshCw, FiDownload } from 'react-icons/fi';
+import { FiUsers, FiKey, FiCheck, FiX, FiEye, FiRefreshCw, FiDownload } from 'react-icons/fi';
 import { supabase } from '../utils/supabase/client';
 import { generateUniqueCode } from '../utils/codeGenerator';
 import { sendCompetitionCodeEmail } from '../utils/emailService';

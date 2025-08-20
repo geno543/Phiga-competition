@@ -16,7 +16,7 @@ import {
   FiHeadphones,
   FiHelpCircle
 } from 'react-icons/fi';
-import { HiOutlineAcademicCap, HiOutlineLightBulb } from 'react-icons/hi2';
+import { HiOutlineAcademicCap } from 'react-icons/hi2';
 
 const Contact: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
