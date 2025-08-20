@@ -39,33 +39,6 @@ const About: React.FC = () => {
     };
   }, []);
 
-  const teamMembers = [
-    {
-      name: 'Dr. Sarah Chen',
-      role: 'Competition Director',
-      description: 'Physics Professor with 15+ years in educational technology',
-      avatar: '👩‍🔬'
-    },
-    {
-      name: 'Prof. Ahmed Hassan',
-      role: 'Problem Designer',
-      description: 'International Physics Olympiad coordinator',
-      avatar: '👨‍🏫'
-    },
-    {
-      name: 'Maria Rodriguez',
-      role: 'Technical Lead',
-      description: 'Full-stack developer specializing in educational platforms',
-      avatar: '👩‍💻'
-    },
-    {
-      name: 'Dr. James Wilson',
-      role: 'Educational Consultant',
-      description: 'Curriculum specialist in STEM education',
-      avatar: '👨‍🎓'
-    }
-  ];
-
   const values = [
     {
       icon: FiGlobe,
@@ -376,103 +349,6 @@ const About: React.FC = () => {
                 </div>
               );
             })}
-          </div>
-        </div>
-      </section>
-
-      {/* Enhanced Team */}
-      <section className="relative py-20 lg:py-32 bg-gradient-to-br from-white via-phiga-light/20 to-white dark:from-phiga-gray-900 dark:via-phiga-gray-800 dark:to-phiga-gray-900 overflow-hidden" data-section="team">
-        {/* Background Effects */}
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-r from-phiga-accent/10 to-phiga-light/5 rounded-full blur-2xl animate-pulse-slow"></div>
-          <div className="absolute bottom-20 right-10 w-40 h-40 bg-gradient-to-r from-phiga-main/10 to-phiga-accent/5 rounded-full blur-2xl animate-float"></div>
-          <div className="absolute inset-0 bg-[linear-gradient(rgba(4,191,157,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(4,191,157,0.02)_1px,transparent_1px)] bg-[size:50px_50px] opacity-50"></div>
-        </div>
-        
-        <div className="container mx-auto px-4 relative z-10">
-          {/* Enhanced Header */}
-          <div className="text-center mb-20" style={{
-            transform: isVisible ? 'translateY(0) scale(1)' : 'translateY(30px) scale(0.95)',
-            opacity: isVisible ? 1 : 0,
-            transition: 'all 0.8s ease-out'
-          }}>
-            {/* Premium Badge */}
-            <div className="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-phiga-accent/15 to-phiga-light/10 backdrop-blur-xl rounded-full border border-phiga-accent/20 mb-8 group hover:scale-105 transition-all duration-500">
-              <FiUsers className="text-phiga-accent animate-pulse" size={20} />
-              <span className="text-phiga-main dark:text-white font-semibold">Our Expert Team</span>
-              <div className="flex gap-1">
-                <FiStar className="text-yellow-400 text-sm animate-pulse" />
-                <FiStar className="text-yellow-400 text-sm animate-pulse" style={{animationDelay: '0.2s'}} />
-                <FiStar className="text-yellow-400 text-sm animate-pulse" style={{animationDelay: '0.4s'}} />
-              </div>
-            </div>
-            
-            <h2 className="text-4xl md:text-6xl lg:text-7xl font-heading font-black text-phiga-main dark:text-white mb-6">
-              <span className="bg-gradient-to-r from-phiga-main via-phiga-accent to-phiga-light bg-clip-text text-transparent">
-                Meet Our Team
-              </span>
-            </h2>
-            <p className="text-xl md:text-2xl text-phiga-gray-600 dark:text-phiga-gray-300 max-w-4xl mx-auto leading-relaxed font-medium">
-              The <span className="text-phiga-accent font-bold">passionate educators</span> and technologists behind PHIGA
-            </p>
-          </div>
-          
-          {/* Enhanced Team Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10">
-            {teamMembers.map((member, index) => (
-              <div 
-                key={index}
-                className="group relative bg-white/90 dark:bg-phiga-gray-800/90 backdrop-blur-xl rounded-3xl p-8 shadow-2xl hover:shadow-3xl transition-all duration-500 transform hover:-translate-y-6 hover:scale-105 border border-white/20 dark:border-phiga-gray-700/50 overflow-hidden text-center"
-                style={{
-                  transform: isVisible ? 'translateY(0) scale(1)' : 'translateY(30px) scale(0.95)',
-                  opacity: isVisible ? 1 : 0,
-                  transition: `all 0.8s ease-out ${index * 0.2}s`
-                }}
-              >
-                {/* Background Effects */}
-                <div className="absolute inset-0 bg-gradient-to-br from-phiga-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
-                
-                {/* Floating Background Icon */}
-                <div className="absolute top-4 right-4 opacity-5 group-hover:opacity-10 transition-opacity duration-500">
-                  <FiStar size={40} className="text-phiga-accent" />
-                </div>
-                
-                <div className="relative z-10">
-                  {/* Enhanced Avatar */}
-                  <div className="relative mx-auto mb-6">
-                    <div className="text-7xl mb-4 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500">
-                      {member.avatar}
-                    </div>
-                    <div className="absolute -top-2 -right-2 w-6 h-6 bg-gradient-to-r from-green-400 to-green-600 rounded-full flex items-center justify-center shadow-lg group-hover:scale-125 transition-transform duration-300">
-                      <FiCheckCircle className="text-white" size={12} />
-                    </div>
-                    {/* Pulsing Ring */}
-                    <div className="absolute inset-0 rounded-full border-2 border-phiga-accent/30 animate-ping group-hover:border-phiga-accent/50"></div>
-                  </div>
-                  
-                  {/* Enhanced Content */}
-                  <h3 className="font-heading font-black text-xl lg:text-2xl text-phiga-main dark:text-white mb-3 group-hover:text-phiga-accent dark:group-hover:text-phiga-accent transition-colors duration-300">
-                    {member.name}
-                  </h3>
-                  <div className="flex items-center justify-center gap-2 mb-4">
-                    <div className="w-2 h-2 bg-phiga-accent rounded-full animate-pulse"></div>
-                    <p className="text-phiga-accent font-semibold">
-                      {member.role}
-                    </p>
-                    <div className="w-2 h-2 bg-phiga-accent rounded-full animate-pulse" style={{animationDelay: '0.5s'}}></div>
-                  </div>
-                  <p className="text-phiga-gray-600 dark:text-phiga-gray-300 text-sm leading-relaxed">
-                    {member.description}
-                  </p>
-                  
-                  {/* Progress Bar */}
-                  <div className="mt-6 h-1 bg-phiga-gray-200 dark:bg-phiga-gray-700 rounded-full overflow-hidden">
-                    <div className="h-full bg-gradient-to-r from-phiga-accent to-phiga-light rounded-full transform scale-x-0 group-hover:scale-x-100 transition-transform duration-700 origin-left"></div>
-                  </div>
-                </div>
-              </div>
-            ))}
           </div>
         </div>
       </section>
