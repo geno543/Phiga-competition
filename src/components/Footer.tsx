@@ -93,12 +93,12 @@ const Footer: React.FC<FooterProps> = ({ setCurrentPage }) => {
             transition: 'all 0.8s ease-out'
           }}>
             <div className="group flex items-center mb-8">
-              <div className="relative p-4 bg-gradient-to-r from-phiga-accent/30 to-phiga-light/25 backdrop-blur-lg rounded-3xl mr-6 shadow-2xl group-hover:scale-110 group-hover:rotate-6 transition-all duration-500">
+              {/* <div className="relative p-4 bg-gradient-to-r from-phiga-accent/30 to-phiga-light/25 backdrop-blur-lg rounded-3xl mr-6 shadow-2xl group-hover:scale-110 group-hover:rotate-6 transition-all duration-500">
                 <HiOutlineAcademicCap className="text-white" size={40} />
                 <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 <div className="absolute -top-1 -right-1 w-4 h-4 bg-green-400 rounded-full animate-ping"></div>
                 <div className="absolute -top-1 -right-1 w-4 h-4 bg-green-400 rounded-full"></div>
-              </div>
+              </div> */}
               <div>
                 <h3 className="text-4xl md:text-5xl font-heading font-black mb-2">
                   <span className="bg-gradient-to-r from-white via-phiga-accent to-phiga-light bg-clip-text text-transparent drop-shadow-2xl">
@@ -106,11 +106,11 @@ const Footer: React.FC<FooterProps> = ({ setCurrentPage }) => {
                   </span>
                 </h3>
                 <div className="flex items-center gap-2">
-                  <FiStar className="text-yellow-400 text-sm animate-pulse" />
+                  {/* <FiStar className="text-yellow-400 text-sm animate-pulse" />
                   <FiStar className="text-yellow-400 text-sm animate-pulse" style={{animationDelay: '0.2s'}} />
                   <FiStar className="text-yellow-400 text-sm animate-pulse" style={{animationDelay: '0.4s'}} />
                   <FiStar className="text-yellow-400 text-sm animate-pulse" style={{animationDelay: '0.6s'}} />
-                  <FiStar className="text-yellow-400 text-sm animate-pulse" style={{animationDelay: '0.8s'}} />
+                  <FiStar className="text-yellow-400 text-sm animate-pulse" style={{animationDelay: '0.8s'}} /> */}
                   <span className="text-phiga-light/70 text-sm ml-2 font-medium">Global Physics Competition</span>
                 </div>
               </div>
@@ -292,7 +292,7 @@ const Footer: React.FC<FooterProps> = ({ setCurrentPage }) => {
                   </div>
                 </a>
               </li>
-              <li>
+              {/* <li>
                 <a href="#" className="group relative flex items-center p-3 rounded-2xl text-phiga-light/80 hover:text-white hover:bg-white/10 backdrop-blur-sm transition-all duration-500 hover:scale-105 hover:shadow-lg overflow-hidden">
                   <div className="absolute inset-0 bg-gradient-to-r from-phiga-accent/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                   <FiExternalLink className="relative z-10 mr-4 group-hover:text-phiga-accent group-hover:scale-125 group-hover:rotate-12 transition-all duration-300" size={20} />
@@ -301,7 +301,7 @@ const Footer: React.FC<FooterProps> = ({ setCurrentPage }) => {
                     <FiAward size={16} className="text-phiga-accent" />
                   </div>
                 </a>
-              </li>
+              </li> */}
             </ul>
           </div>
         </div>

@@ -38,16 +38,17 @@ const Rules: React.FC = () => {
 
   const ruleCategories = [
     {
-      id: 'general',
-      title: 'General Rules',
+      id: 'registration',
+      title: 'Registration & Eligibility',
       icon: FiFileText,
       color: 'text-blue-500',
       rules: [
-        'All participants must be currently enrolled high school students',
-        'Each student can only register one account per competition',
-        'Fair play and academic integrity are strictly enforced',
-        'Use of external help or collaboration during competitions is prohibited',
-        'Respect for all participants and organizers is mandatory'
+        'Pre-registration is required at the official PHIGA website',
+        'Open to high school students (grades 9-12) and undergraduates',
+        'Categories: A (grades 9-10), B (grade 11), C (grade 12), Open (undergraduates)',
+        'Individual competition only - no team registration',
+        'Each participant can compete only once per competition',
+        'By registering, participants agree to follow all competition rules'
       ]
     },
     {
@@ -56,11 +57,12 @@ const Rules: React.FC = () => {
       icon: FiAward,
       color: 'text-green-500',
       rules: [
-        'Competitions consist of 10-15 physics problems of varying difficulty',
-        'Each problem is presented as an interactive video scenario',
-        'Time limits range from 2-10 minutes per problem depending on complexity',
-        'Problems cover mechanics, thermodynamics, electromagnetism, optics, and modern physics',
-        'Multiple choice, numerical, and conceptual questions are included'
+        'Competition duration: Exactly 4 hours',
+        'Total problems: 30 consecutive physics problems',
+        'Format: Video-based gamified storyline experience',
+        'Sequential unlocking: Must solve current problem to access next',
+        'Problem difficulty increases progressively through stages',
+        'Real-time progress tracking visible to all participants until final 20 minutes'
       ]
     },
     {
@@ -69,58 +71,62 @@ const Rules: React.FC = () => {
       icon: FiTrendingUp,
       color: 'text-purple-500',
       rules: [
-        'Base points: 100 points for correct answers, 0 for incorrect',
-        'Speed bonus: Up to 50% extra points for quick correct answers',
-        'Streak bonus: 10% additional points for consecutive correct answers',
-        'Difficulty multiplier: Harder problems worth up to 2x base points',
-        'Partial credit available for multi-part numerical problems'
+        'Maximum 5 points per problem on first correct attempt',
+        'Decreasing points for multiple attempts: 4, 3, 2, 1 points',
+        'Skip option: Up to 5 problems allowed, -2 points per skip',
+        'Winner determined by highest total points',
+        'Tiebreaker: Earlier time of last submitted correct answer',
+        'Final tiebreaker: Drawing lots if still tied'
       ]
     },
     {
       id: 'conduct',
-      title: 'Code of Conduct',
+      title: 'Allowed Resources & Conduct',
       icon: FiShield,
       color: 'text-red-500',
       rules: [
-        'Maintain respectful communication in all platform interactions',
-        'Report any technical issues or suspected violations immediately',
-        'No sharing of competition content during or after events',
-        'Respect intellectual property rights of all materials',
-        'Follow all local laws and school policies while participating'
+        'Google Search and publicly accessible internet resources are allowed',
+        'Calculators and external writing/drafting materials permitted',
+        'Communication with other participants is strictly prohibited',
+        'Use of generative AI tools (ChatGPT, etc.) is forbidden',
+        'Pre-written code or scripts for automatic solving are not allowed',
+        'Only individual problem-solving skills should be demonstrated'
       ]
     },
+    
     {
-      id: 'technical',
-      title: 'Technical Requirements',
-      icon: FiActivity,
-      color: 'text-orange-500',
+      id: 'violations',
+      title: 'Rule Violations & Consequences',
+      icon: FiAlertTriangle,
+      color: 'text-red-500',
       rules: [
-        'Stable internet connection with minimum 5 Mbps speed required',
-        'Modern web browser (Chrome 90+, Firefox 88+, Safari 14+, Edge 90+)',
-        'Screen resolution of at least 1024x768 pixels recommended',
-        'JavaScript and cookies must be enabled',
-        'Pop-up blockers should be disabled for the competition domain'
+        'Rule violations may result in point deductions or disqualification',
+        'Severe breaches can lead to bans from future competitions',
+        'Organizers may inform other competitions about serious misconduct',
+        'Sharing competition problems externally is strictly forbidden',
+        'Intentional disruption of competition or server attacks prohibited',
+        'Head organizer has authority to investigate and impose consequences'
       ]
     }
   ];
 
   const importantNotes = [
-    {
-      icon: FiAlertTriangle,
-      title: 'Disqualification',
-      description: 'Violations of rules may result in immediate disqualification and ban from future competitions.',
-      color: 'text-red-500'
-    },
+    // {
+    //   icon: FiAlertTriangle,
+    //   title: 'Appeals Process',
+    //   description: 'Participants may appeal to organizers up to 60 minutes after competition ends. Appeals will be reviewed and may be reflected in final results.',
+    //   color: 'text-red-500'
+    // },
     {
       icon: FiClock,
-      title: 'Time Zones',
-      description: 'All competition times are displayed in your local time zone. Ensure you join at the correct time.',
+      title: 'Competition Duration',
+      description: 'The competition lasts exactly 4 hours. Scores are hidden during the final 20 minutes until competition finishes.',
       color: 'text-blue-500'
     },
     {
       icon: FiTarget,
-      title: 'Appeals',
-      description: 'Technical issues or scoring disputes must be reported within 24 hours of competition end.',
+      title: 'Result Publication',
+      description: 'Results include basic information (name, school, country, points) and are published in both digital and print formats.',
       color: 'text-green-500'
     }
   ];
@@ -165,13 +171,13 @@ const Rules: React.FC = () => {
           {/* Enhanced Subtitle */}
           <p className="text-xl md:text-3xl lg:text-4xl max-w-5xl mx-auto leading-relaxed font-medium mb-8">
             <span className="text-phiga-light/90">
-              Essential 
+              Official 
             </span>
             <span className="bg-gradient-to-r from-phiga-accent to-phiga-light bg-clip-text text-transparent font-bold">
-              guidelines
+              competition rules
             </span>
             <span className="text-phiga-light/90">
-              {' '}for fair and competitive physics challenges
+              {' '}for the 4-hour physics challenge
             </span>
           </p>
         </div>

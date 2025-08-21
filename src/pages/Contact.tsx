@@ -84,13 +84,13 @@ const Contact: React.FC = () => {
       contact: '+20 115880 6644',
       color: 'text-green-500'
     },
-    {
-      icon: FiMapPin,
-      title: 'Visit Us',
-      description: 'Our headquarters',
-      contact: 'Physics Education Center\nSingapore',
-      color: 'text-purple-500'
-    }
+    // {
+    //   icon: FiMapPin,
+    //   title: 'Visit Us',
+    //   description: 'Our headquarters',
+    //   contact: 'Physics Education Center\nSingapore',
+    //   color: 'text-purple-500'
+    // }
   ];
 
   const supportCategories = [

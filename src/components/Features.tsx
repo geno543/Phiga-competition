@@ -17,7 +17,6 @@ import {
   FiUsers,
   FiGlobe,
   FiLayers,
-  FiActivity,
   FiCheckCircle
 } from 'react-icons/fi';
 import { HiOutlineLightBulb } from 'react-icons/hi2';
@@ -166,84 +165,43 @@ const Features: React.FC = () => {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,transparent_0%,rgba(4,191,157,0.05)_50%,transparent_100%)]"></div>
       </div>
       {/* Competition Facts */}
-      <section className="relative py-24 lg:py-40">
+      <section className="relative py-16 lg:py-24">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-24">
-            <div className="group inline-flex items-center gap-4 bg-gradient-to-r from-phiga-accent/20 via-phiga-light/15 to-phiga-accent/20 backdrop-blur-lg border border-phiga-accent/40 rounded-full px-10 py-4 mb-10 animate-fade-in shadow-2xl hover:shadow-phiga-accent/20 transition-all duration-500 hover:scale-110 cursor-pointer relative overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
-              <div className="p-2 bg-gradient-to-r from-phiga-accent to-phiga-light rounded-full shadow-lg group-hover:rotate-180 transition-transform duration-500">
-                <FiZap className="text-white text-lg" />
-              </div>
-              <span className="text-phiga-main dark:text-white font-bold text-lg tracking-wide">Competition Overview</span>
-              <div className="flex items-center gap-1">
-                <FiStar className="text-yellow-400 text-sm animate-pulse" />
-                <FiStar className="text-yellow-400 text-sm animate-pulse" style={{animationDelay: '0.2s'}} />
-                <FiStar className="text-yellow-400 text-sm animate-pulse" style={{animationDelay: '0.4s'}} />
-              </div>
-            </div>
-            <h2 className="text-5xl md:text-6xl lg:text-8xl font-heading font-black text-phiga-main dark:text-white mb-8 animate-fade-in leading-none">
-              <span className="relative inline-block">
-                <span className="bg-gradient-to-r from-phiga-main via-phiga-accent to-phiga-main bg-clip-text text-transparent drop-shadow-2xl">
-                  Quick Facts
-                </span>
-                <div className="absolute inset-0 bg-gradient-to-r from-phiga-accent/20 to-phiga-main/20 blur-3xl -z-10 animate-pulse"></div>
-              </span>
+          <div className="text-center mb-12">
+            <span className="inline-block px-3 py-1 bg-phiga-accent/10 text-phiga-accent text-sm font-medium rounded-full mb-4">
+              Competition details
+            </span>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+              Quick Facts
             </h2>
-            <p className="text-2xl md:text-3xl text-phiga-gray-600 dark:text-phiga-gray-300 max-w-5xl mx-auto leading-relaxed font-medium animate-slide-up">
-              Everything you need to know about the world's most <span className="text-phiga-accent font-bold">exciting physics competition</span>
+            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+              Everything you need to know about the physics competition
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6 max-w-6xl mx-auto">
             {competitionFacts.map((fact, index) => {
               const IconComponent = fact.icon;
               return (
                 <div 
                   key={index}
-                  className={`group relative bg-gradient-to-br ${fact.bgColor} backdrop-blur-xl rounded-3xl p-10 border-2 ${fact.borderColor} hover:shadow-[0_0_40px_rgba(4,191,157,0.3)] transition-all duration-700 hover:scale-110 hover:-translate-y-6 overflow-hidden cursor-pointer`}
-                  onMouseEnter={() => setActiveCard(index)}
-                  onMouseLeave={() => setActiveCard(null)}
+                  className="bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700 hover:border-phiga-accent/30 hover:shadow-md transition-all duration-300"
                   style={{
                     animationDelay: `${index * 0.1}s`,
-                    transform: isVisible ? 'translateY(0) scale(1)' : 'translateY(50px) scale(0.9)',
+                    transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
                     opacity: isVisible ? 1 : 0,
-                    transition: 'all 0.6s ease-out'
+                    transition: 'all 0.5s ease-out'
                   }}
                 >
-                  {/* Enhanced Glow Effects */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-white/15 via-transparent to-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
-                  
-                  {/* Floating Icon Background */}
-                  <div className="absolute top-4 right-4 opacity-10 group-hover:opacity-20 transition-opacity duration-500">
-                    <IconComponent size={80} className={fact.color} />
+                  <div className={`inline-flex p-3 ${fact.color.replace('text-', 'bg-').replace('-500', '-50')} ${fact.color} rounded-lg mb-4`}>
+                    <IconComponent size={24} />
                   </div>
-                  
-                  <div className="relative z-10">
-                    <div className="flex items-center mb-8">
-                      <div className={`p-5 rounded-3xl bg-gradient-to-r from-white/25 to-white/15 backdrop-blur-sm ${fact.color} shadow-2xl group-hover:scale-125 group-hover:rotate-12 transition-all duration-500`}>
-                        <IconComponent size={32} />
-                      </div>
-                    </div>
-                    <h3 className="font-heading font-black text-2xl text-phiga-main dark:text-white mb-4 group-hover:text-phiga-accent transition-colors duration-300 leading-tight">
-                      {fact.category}
-                    </h3>
-                    <p className="text-phiga-gray-600 dark:text-phiga-gray-300 leading-relaxed text-lg group-hover:text-phiga-gray-700 dark:group-hover:text-phiga-gray-200 transition-colors duration-300">
-                      {fact.detail}
-                    </p>
-                    
-                    {/* Progress Bar */}
-                    <div className="mt-6 w-full bg-white/20 rounded-full h-2">
-                      <div 
-                        className={`h-2 rounded-full bg-gradient-to-r ${fact.bgColor.replace('/20', '/60').replace('/10', '/40')} transition-all duration-1000 ${activeCard === index ? 'w-full' : 'w-1/3'}`}
-                      ></div>
-                    </div>
-                    
-                    {/* Check Icon */}
-                    <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-2 group-hover:translate-y-0">
-                      <FiCheckCircle className={`${fact.color} text-2xl`} />
-                    </div>
-                  </div>
+                  <h3 className="font-semibold text-gray-900 dark:text-white mb-2">
+                    {fact.category}
+                  </h3>
+                  <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
+                    {fact.detail}
+                  </p>
                 </div>
               );
             })}
@@ -252,109 +210,100 @@ const Features: React.FC = () => {
       </section>
 
       {/* How PHIGA Works */}
-      <section className="relative py-24 lg:py-40 bg-gradient-to-br from-phiga-light via-white to-phiga-light/50 dark:from-phiga-gray-800 dark:via-phiga-gray-900 dark:to-phiga-gray-800 overflow-hidden">
-        {/* Section Background Effects */}
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-10 left-20 w-40 h-40 bg-gradient-to-r from-phiga-accent/15 to-phiga-main/10 rounded-full blur-3xl animate-pulse-slow opacity-60"></div>
-          <div className="absolute bottom-20 right-10 w-60 h-60 bg-gradient-to-r from-phiga-main/10 to-phiga-accent/15 rounded-full blur-3xl animate-float opacity-50"></div>
-          <div className="absolute inset-0 bg-[linear-gradient(rgba(4,191,157,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(4,191,157,0.05)_1px,transparent_1px)] bg-[size:100px_100px] opacity-30"></div>
-        </div>
-        
+      <section className="relative py-16 lg:py-24 bg-white dark:bg-gray-900">
         <div className="container mx-auto px-4 relative z-10">
-          <div className="text-center mb-20">
-            <div className="group inline-flex items-center gap-4 bg-gradient-to-r from-phiga-main/20 via-phiga-accent/15 to-phiga-main/20 backdrop-blur-lg border border-phiga-main/40 rounded-full px-10 py-4 mb-10 animate-fade-in shadow-2xl hover:shadow-phiga-main/20 transition-all duration-500 hover:scale-110 cursor-pointer relative overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
-              <div className="p-2 bg-gradient-to-r from-phiga-main to-phiga-accent rounded-full shadow-lg group-hover:rotate-180 transition-transform duration-500">
-                <FiLayers className="text-white text-lg" />
-              </div>
-              <span className="text-phiga-main dark:text-white font-bold text-lg tracking-wide">Step-by-Step Guide</span>
-              <div className="flex items-center gap-1">
-                <FiActivity className="text-phiga-accent text-lg animate-pulse" />
-              </div>
-            </div>
-            <h2 className="text-5xl md:text-6xl lg:text-8xl font-heading font-black text-phiga-main dark:text-white mb-8 animate-fade-in leading-none">
-              <span className="relative inline-block">
-                <span className="bg-gradient-to-r from-phiga-main via-phiga-accent to-phiga-main bg-clip-text text-transparent drop-shadow-2xl">
-                  How PHIGA Works
-                </span>
-                <div className="absolute inset-0 bg-gradient-to-r from-phiga-main/20 to-phiga-accent/20 blur-3xl -z-10 animate-pulse"></div>
-              </span>
+          {/* Clean Header Section */}
+          <div className="text-center mb-16">
+            <span className="inline-block px-3 py-1 bg-phiga-accent/10 text-phiga-accent text-sm font-medium rounded-full mb-4">
+              How it works
+            </span>
+            
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+              Your Competition Journey
             </h2>
-            <p className="text-2xl md:text-3xl text-phiga-gray-600 dark:text-phiga-gray-300 max-w-5xl mx-auto leading-relaxed font-medium animate-slide-up">
-              Your journey from <span className="text-phiga-main font-bold">registration</span> to <span className="text-phiga-accent font-bold">victory</span> in six simple steps
+            
+            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+              From registration to victory in six straightforward steps
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-            {howItWorks.map((item, index) => {
-              const IconComponent = item.icon;
-              return (
-                <div 
-                  key={index}
-                  className="group relative bg-gradient-to-br from-white via-white/95 to-white/90 dark:from-phiga-gray-900 dark:via-phiga-gray-800 dark:to-phiga-gray-900 rounded-3xl p-10 shadow-2xl hover:shadow-[0_0_50px_rgba(4,191,157,0.2)] transition-all duration-700 transform hover:-translate-y-8 hover:scale-105 border-2 border-white/50 dark:border-phiga-gray-700/50 hover:border-phiga-accent/40 overflow-hidden cursor-pointer"
-                  style={{
-                    animationDelay: `${index * 0.15}s`,
-                    transform: isVisible ? 'translateY(0) scale(1)' : 'translateY(60px) scale(0.9)',
-                    opacity: isVisible ? 1 : 0,
-                    transition: 'all 0.8s ease-out'
-                  }}
-                >
-                  {/* Enhanced Background Effects */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-phiga-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/15 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1200"></div>
+          {/* Steps Grid */}
+          <div className="max-w-6xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {howItWorks.map((item, index) => {
+                const IconComponent = item.icon;
                   
-                  {/* Floating Background Icon */}
-                  <div className="absolute top-4 right-4 opacity-5 group-hover:opacity-10 transition-opacity duration-500">
-                    <IconComponent size={120} className="text-phiga-accent" />
-                  </div>
-                  
-                  {/* Enhanced Step Number */}
-                  <div className="absolute -top-6 left-8">
-                    <div className={`${item.color} text-white px-6 py-3 rounded-2xl text-lg font-black shadow-2xl group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 border-4 border-white/30`}>
-                      {item.step}
-                    </div>
-                  </div>
-                  
-                  {/* Enhanced Icon */}
-                  <div className="flex justify-center mb-8 mt-8">
-                    <div className={`${item.color} p-6 rounded-3xl text-white shadow-2xl group-hover:scale-125 group-hover:rotate-12 transition-all duration-500 relative`}>
-                      <IconComponent size={40} />
-                      <div className="absolute inset-0 bg-white/20 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                    </div>
-                  </div>
-                  
-                  {/* Enhanced Content */}
-                  <div className="text-center relative z-10">
-                    <h3 className="font-heading font-black text-2xl text-phiga-main dark:text-white mb-4 group-hover:text-phiga-accent transition-colors duration-300 leading-tight">
-                      {item.title}
-                    </h3>
-                    <p className="text-phiga-gray-600 dark:text-phiga-gray-300 leading-relaxed text-lg group-hover:text-phiga-gray-700 dark:group-hover:text-phiga-gray-200 transition-colors duration-300">
-                      {item.description}
-                    </p>
-                    
-                    {/* Progress Indicator */}
-                    <div className="mt-6 flex justify-center">
-                      <div className="w-16 h-1 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
-                        <div className={`h-full ${item.color.replace('bg-', 'bg-gradient-to-r from-').replace('-500', '-400 to-').replace('-500', '-600')} transform scale-x-0 group-hover:scale-x-100 transition-transform duration-1000 origin-left`}></div>
+                return (
+                  <div 
+                    key={index}
+                    className="group relative"
+                    style={{
+                      animationDelay: `${index * 0.1}s`,
+                      transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
+                      opacity: isVisible ? 1 : 0,
+                      transition: 'all 0.5s ease-out'
+                    }}
+                  >
+                    {/* Simple Card Design */}
+                    <div className="relative bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 hover:border-phiga-accent/30 hover:shadow-lg transition-all duration-300">
+                      
+                      {/* Step Number */}
+                      <div className="flex items-center gap-3 mb-4">
+                        <div className={`w-10 h-10 ${item.color} rounded-lg flex items-center justify-center text-white font-semibold text-lg`}>
+                          {index + 1}
+                        </div>
+                        <span className="text-sm text-gray-500 dark:text-gray-400 font-medium">
+                          Step {index + 1}
+                        </span>
+                      </div>
+                      
+                      {/* Icon */}
+                      <div className="mb-4">
+                        <div className={`inline-flex p-3 ${item.color.replace('bg-', 'bg-').replace('-500', '-50')} ${item.color.replace('bg-', 'text-').replace('-500', '-600')} rounded-lg`}>
+                          <IconComponent size={24} />
+                        </div>
+                      </div>
+                      
+                      {/* Content */}
+                      <div>
+                        <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                          {item.title}
+                        </h3>
+                        <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                          {item.description}
+                        </p>
+                      </div>
+                      
+                      {/* Bottom indicator */}
+                      <div className="mt-4 pt-4 border-t border-gray-100 dark:border-gray-700">
+                        <div className="flex items-center justify-between">
+                          <div className="w-full bg-gray-100 dark:bg-gray-700 rounded-full h-1">
+                            <div 
+                              className={`h-1 ${item.color} rounded-full transition-all duration-500 group-hover:w-full`}
+                              style={{ width: `${(index + 1) * 16.67}%` }}
+                            ></div>
+                          </div>
+                          <span className="ml-3 text-xs text-gray-400 dark:text-gray-500 font-medium">
+                            {Math.round((index + 1) * 16.67)}%
+                          </span>
+                        </div>
                       </div>
                     </div>
                   </div>
-                  
-                  {/* Enhanced Connecting Line */}
-                  {index < howItWorks.length - 1 && (
-                    <div className="hidden lg:block absolute top-1/2 -right-5 w-10 h-1 bg-gradient-to-r from-phiga-accent to-phiga-main transform -translate-y-1/2 z-10 opacity-60">
-                      <div className="absolute right-0 top-1/2 transform -translate-y-1/2 w-0 h-0 border-l-6 border-l-phiga-accent border-t-3 border-b-3 border-t-transparent border-b-transparent"></div>
-                      <div className="absolute inset-0 bg-gradient-to-r from-phiga-accent to-phiga-main animate-pulse"></div>
-                    </div>
-                  )}
-                  
-                  {/* Success Indicator */}
-                  <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-2 group-hover:translate-y-0">
-                    <FiCheckCircle className="text-green-500 text-2xl" />
-                  </div>
+                );
+              })}
+            </div>
+
+            {/* Simple Call to Action */}
+            <div className="mt-16 text-center">
+              <div className="inline-flex items-center gap-4 bg-gray-50 dark:bg-gray-800 rounded-lg px-6 py-4 border border-gray-200 dark:border-gray-700">
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 bg-phiga-accent rounded-full"></div>
+                  <span className="text-gray-700 dark:text-gray-300 font-medium">Ready to participate?</span>
                 </div>
-              );
-            })}
+                <div className="text-phiga-accent font-semibold">Join the competition</div>
+              </div>
+            </div>
           </div>
         </div>
       </section>

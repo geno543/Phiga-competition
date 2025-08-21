@@ -60,72 +60,107 @@ const FAQ: React.FC = () => {
     {
       id: '1',
       question: 'What is PHIGA?',
-      answer: 'PHIGA (Physics International Gamefield Adventure) is a global online physics competition platform that challenges high school students through interactive video-based problems and real-time scoring.',
+      answer: 'PHIGA (Physics International Gamefield Adventure) is an individual, 4-hour online physics competition for high school students and undergraduates. It features 30 progressive problems presented through an immersive video-based storyline, created by the physics education experts at Quantastra.',
       category: 'general',
       icon: HiOutlineAcademicCap
     },
     {
       id: '2',
-      question: 'How do I register for PHIGA?',
-      answer: 'Registration is simple! Click the "Register" button on our homepage, fill out your details including school information, and verify your email address. You\'ll then have access to practice problems and can participate in competitions.',
+      question: 'Who can participate in PHIGA?',
+      answer: 'PHIGA is open to high school students (grades 9-12) and undergraduate students worldwide. Participants compete individually, not as teams. There are separate categories based on grade level: Category A (grades 9-10), Category B (grade 11), Category C (grade 12), and Open Category (undergraduates and extended programs).',
       category: 'general',
       icon: FiUsers
     },
     {
       id: '3',
       question: 'Is PHIGA free to participate?',
-      answer: 'Yes! PHIGA is completely free for all students. We believe physics education should be accessible to everyone, regardless of their financial situation.',
+      answer: 'Yes! PHIGA is completely free of charge. We believe in making quality physics education accessible to all students worldwide, regardless of their financial situation.',
       category: 'general',
       icon: FiGlobe
     },
     {
       id: '4',
       question: 'How does the competition format work?',
-      answer: 'Competitions feature video-based physics problems that you solve in real-time. Each problem has a time limit, and points are awarded based on accuracy and speed. Rankings are updated live during the competition.',
+      answer: 'The competition lasts exactly 4 hours and consists of 30 consecutive problems. Each problem is presented as part of a gamified video storyline. You must solve each problem correctly to unlock the next one. Problems increase in difficulty as you progress through the stages.',
       category: 'competition',
       icon: FiAward
     },
     {
       id: '5',
-      question: 'What topics are covered in the problems?',
-      answer: 'Our problems cover all major high school physics topics including mechanics, thermodynamics, electromagnetism, optics, and modern physics. Problems range from basic concepts to advanced applications.',
-      category: 'competition',
-      icon: FiBook
-    },
-    {
-      id: '6',
       question: 'How is scoring calculated?',
-      answer: 'Scoring is based on accuracy (correctness of your answer) and speed (how quickly you solve the problem). Bonus points are awarded for consecutive correct answers and exceptional performance.',
+      answer: 'Each problem has a maximum score of 5 points if solved correctly on the first attempt. For each incorrect attempt, available points decrease: 4 points (2nd attempt), 3 points (3rd), 2 points (4th), and 1 point (5th). The goal is to collect as many points as possible in the shortest time.',
       category: 'scoring',
       icon: FiZap
     },
     {
-      id: '7',
-      question: 'Can I practice before competitions?',
-      answer: 'Absolutely! We provide a comprehensive practice mode with hundreds of problems across all physics topics. Practice as much as you want to improve your skills.',
+      id: '6',
+      question: 'Can I skip problems if I get stuck?',
+      answer: 'Yes, you can skip up to 5 problems during the competition, but each skip deducts 2 points from your total score. This feature becomes available after the competition begins and should be used strategically.',
       category: 'competition',
-      icon: HiOutlineLightBulb
+      icon: FiActivity
+    },
+    {
+      id: '7',
+      question: 'What resources am I allowed to use?',
+      answer: 'You can use Google Search and publicly accessible internet resources for physics concepts, formulas, and general knowledge. However, communication with other participants is strictly prohibited, and the use of generative AI tools (like ChatGPT) or pre-written code/scripts is forbidden.',
+      category: 'competition',
+      icon: FiBook
     },
     {
       id: '8',
       question: 'What technical requirements do I need?',
-      answer: 'You need a stable internet connection, a modern web browser (Chrome, Firefox, Safari, or Edge), and a device with a screen size of at least 10 inches for the best experience.',
+      answer: 'You need a stable internet connection, a modern web browser (Chrome, Firefox, Safari, or Edge), and a device capable of viewing videos and submitting numerical answers. The platform works on computers, tablets, and large smartphones.',
       category: 'technical',
       icon: FiSettings
     },
     {
       id: '9',
-      question: 'How do I reset my password?',
-      answer: 'Click "Forgot Password" on the login page, enter your email address, and we\'ll send you a reset link. Follow the instructions in the email to create a new password.',
+      question: 'How do I register for PHIGA?',
+      answer: 'Registration opens before each competition period. You must pre-register at the official PHIGA website with your personal and school information. You\'ll receive a unique password shortly before the competition to access the platform.',
       category: 'account',
       icon: FiShield
     },
     {
       id: '10',
-      question: 'Are there prizes for winners?',
-      answer: 'Yes! We offer various prizes including certificates, scholarships, and recognition opportunities. Top performers may also receive invitations to special physics programs and events.',
-      category: 'competition',
+      question: 'What happens if there are technical issues during competition?',
+      answer: 'Important announcements are posted on the online board within the platform. Only in exceptional cases will email be used for urgent communications. If serious issues are discovered with problems, organizers may modify or eliminate them. Monitor the online board throughout the event.',
+      category: 'technical',
+      icon: FiActivity
+    },
+    {
+      id: '11',
+      question: 'How are winners determined and what are the prizes?',
+      answer: 'The winner is the participant with the highest number of points. In case of ties, the earlier time of the last submitted correct answer prevails. Winners receive certificates and recognition. Results are published with basic information (name, school, country, points) in both digital and print formats.',
+      category: 'scoring',
       icon: FiStar
+    },
+    {
+      id: '12',
+      question: 'Can I appeal results or contest decisions?',
+      answer: 'Yes, participants may appeal to organizers up to 60 minutes after the competition ends. Your remarks will be considered and may be reflected in the final results. After all appeals are reviewed, final results are published on the PHIGA website.',
+      category: 'scoring',
+      icon: FiCheckCircle
+    },
+    {
+      id: '13',
+      question: 'What is the connection between PHIGA and Quantastra?',
+      answer: 'Quantastra is a physics education channel that creates animated content to make physics concepts accessible and engaging. The educational expertise and gamified approach developed by Quantastra became the foundation for PHIGA\'s comprehensive competition platform.',
+      category: 'general',
+      icon: HiOutlineLightBulb
+    },
+    {
+      id: '14',
+      question: 'Are there practice opportunities before the competition?',
+      answer: 'While specific practice modes aren\'t mentioned in the official rules, the competition platform will be made available to registered participants before the event begins. Focus on reviewing fundamental physics concepts across all major topics.',
+      category: 'competition',
+      icon: FiBook
+    },
+    {
+      id: '15',
+      question: 'What physics topics should I study?',
+      answer: 'The competition covers all major high school and early undergraduate physics topics including mechanics, thermodynamics, electromagnetism, optics, waves, and modern physics. Problems range from basic concepts to advanced applications requiring analytical thinking.',
+      category: 'competition',
+      icon: HiOutlineAcademicCap
     }
   ];
 
@@ -184,13 +219,13 @@ const FAQ: React.FC = () => {
           {/* Enhanced Subtitle */}
           <p className="text-xl md:text-3xl lg:text-4xl max-w-5xl mx-auto leading-relaxed font-medium mb-8">
             <span className="text-phiga-light/90">
-              Find answers to 
+              Everything you need to know about the 
             </span>
             <span className="bg-gradient-to-r from-phiga-accent to-phiga-light bg-clip-text text-transparent font-bold">
-              common questions
+              4-hour physics competition
             </span>
             <span className="text-phiga-light/90">
-              {' '}about PHIGA
+              {' '}and how to participate
             </span>
           </p>
           
