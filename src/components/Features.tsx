@@ -69,14 +69,14 @@ const Features: React.FC = () => {
       bgColor: 'from-orange-500/20 to-orange-600/10',
       borderColor: 'border-orange-500/30'
     },
-    {
-      category: 'Progression',
-      detail: 'Sequential unlock system - solve to advance',
-      icon: FiUnlock,
-      color: 'text-purple-500',
-      bgColor: 'from-purple-500/20 to-purple-600/10',
-      borderColor: 'border-purple-500/30'
-    },
+    // {
+    //   category: 'Progression',
+    //   detail: 'Sequential unlock system - solve to advance',
+    //   icon: FiUnlock,
+    //   color: 'text-purple-500',
+    //   bgColor: 'from-purple-500/20 to-purple-600/10',
+    //   borderColor: 'border-purple-500/30'
+    // },
     {
       category: 'Allowed Tools',
       detail: 'Calculators, internet search (no AI/code assistance)',
@@ -100,14 +100,6 @@ const Features: React.FC = () => {
       color: 'text-yellow-500',
       bgColor: 'from-yellow-500/20 to-yellow-600/10',
       borderColor: 'border-yellow-500/30'
-    },
-    {
-      category: 'Accessibility',
-      detail: 'WCAG AA-compliant, screen-reader-friendly, color-accessible design',
-      icon: FiHeart,
-      color: 'text-pink-500',
-      bgColor: 'from-pink-500/20 to-pink-600/10',
-      borderColor: 'border-pink-500/30'
     }
   ];
 
@@ -143,7 +135,7 @@ const Features: React.FC = () => {
     {
       step: '5. Live Leaderboard',
       title: 'Track Progress',
-      description: 'Track your progress and rivals\' positions — live scoreboard visible except during the last 20 minutes.',
+      description: 'Track your progress and rivals\' positions — live scoreboard visible except during the last 30 minutes.',
       icon: FiBarChart,
       color: 'bg-indigo-500'
     },

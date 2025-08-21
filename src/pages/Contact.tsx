@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import {
   FiMail,
-  FiPhone,
   FiMapPin,
+  FiPhone,
   FiSend,
   FiUser,
   FiMessageSquare,
@@ -12,7 +12,6 @@ import {
   FiShield,
   FiCheckCircle,
   FiClock,
-  FiGlobe,
   FiHeadphones,
   FiHelpCircle
 } from 'react-icons/fi';
@@ -82,7 +81,7 @@ const Contact: React.FC = () => {
       icon: FiPhone,
       title: 'Call Us',
       description: 'Speak with our team',
-      contact: '+1 (555) 123-4567',
+      contact: '+20 115880 6644',
       color: 'text-green-500'
     },
     {
@@ -91,13 +90,6 @@ const Contact: React.FC = () => {
       description: 'Our headquarters',
       contact: 'Physics Education Center\nSingapore',
       color: 'text-purple-500'
-    },
-    {
-      icon: FiGlobe,
-      title: 'Online Support',
-      description: '24/7 assistance',
-      contact: 'support.phiga.org',
-      color: 'text-orange-500'
     }
   ];
 

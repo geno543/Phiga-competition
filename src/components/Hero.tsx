@@ -1,5 +1,5 @@
 import React from 'react';
-import { FiPlay, FiUsers, FiZap, FiTarget, FiTrendingUp } from 'react-icons/fi';
+import { FiPlay, FiZap, FiTarget, FiTrendingUp } from 'react-icons/fi';
 import AtomVisualization from './AtomVisualization';
 
 interface HeroProps {
@@ -48,10 +48,10 @@ const Hero: React.FC<HeroProps> = ({ setCurrentPage }) => {
 
           {/* Stats Row */}
           <div className="flex flex-wrap gap-6 mb-8 animate-slide-up">
-            <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2">
+            {/* <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2">
               <FiUsers className="text-phiga-accent" />
               <span className="text-white font-semibold">1000+ Students</span>
-            </div>
+            </div> */}
             <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2">
               <FiTarget className="text-phiga-accent" />
               <span className="text-white font-semibold">30 Challenges</span>
