@@ -80,7 +80,7 @@ const Contact: React.FC = () => {
       icon: FiPhone,
       title: 'Call Us',
       description: 'Speak with our team',
-      contact: '+20 115880 6644',
+      contact: '+20 115 880 6644',
       color: 'text-green-500'
     },
     // {
