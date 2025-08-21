@@ -15,15 +15,12 @@ import {
   FiZap,
   FiStar,
   FiUsers,
-  FiGlobe,
-  FiLayers,
-  FiCheckCircle
+  FiGlobe
 } from 'react-icons/fi';
 import { HiOutlineLightBulb } from 'react-icons/hi2';
 
 const Features: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const [activeCard, setActiveCard] = useState<number | null>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
