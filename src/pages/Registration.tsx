@@ -5,7 +5,6 @@ import {
   FiMail,
   FiGlobe,
   FiBook,
-  FiAward,
   FiHeart,
   FiCheck,
   FiAlertCircle,
@@ -22,7 +21,7 @@ interface RegistrationData {
   country: string;
   school: string;
   gradeLevel: string;
-  physicsExperience: string;
+  birthDate: string;
   motivation: string;
 }
 
@@ -35,7 +34,7 @@ const Registration: React.FC = () => {
     country: '',
     school: '',
     gradeLevel: '',
-    physicsExperience: '',
+    birthDate: '',
     motivation: ''
   });
 
@@ -69,13 +68,6 @@ const Registration: React.FC = () => {
   const gradeLevels = [
     'Grade 9', 'Grade 10', 'Grade 11', 'Grade 12',
     'University Year 1', 'University Year 2', 'University Year 3', 'University Year 4+'
-  ];
-
-  const physicsLevels = [
-    'Beginner - Just starting with physics',
-    'Intermediate - Some physics coursework completed',
-    'Advanced - Strong physics background',
-    'Expert - Extensive physics competition experience'
   ];
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
@@ -136,7 +128,7 @@ const Registration: React.FC = () => {
             country: formData.country,
             school: formData.school,
             grade_level: formData.gradeLevel,
-            physics_experience: formData.physicsExperience,
+            birth_date: formData.birthDate,
             motivation: formData.motivation
           }
         ]);
@@ -155,7 +147,7 @@ const Registration: React.FC = () => {
         country: '',
         school: '',
         gradeLevel: '',
-        physicsExperience: '',
+        birthDate: '',
         motivation: ''
       });
     } catch (error: any) {
@@ -374,30 +366,26 @@ const Registration: React.FC = () => {
                 </div>
               </div>
 
-              {/* Physics Experience */}
+              {/* Birth Date */}
               <div>
                 <h2 className="text-2xl font-heading font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-3 relative z-10">
                   <div className="p-2 bg-gradient-to-r from-phiga-accent to-phiga-light rounded-xl shadow-lg">
-                    <FiAward className="w-5 h-5 text-phiga-dark" />
+                    <FiUser className="w-5 h-5 text-phiga-dark" />
                   </div>
-                  <span className="bg-gradient-to-r from-phiga-accent to-phiga-main bg-clip-text text-transparent">Physics Experience</span>
+                  <span className="bg-gradient-to-r from-phiga-accent to-phiga-main bg-clip-text text-transparent">Personal Details</span>
                 </h2>
                 <div>
-                  <label htmlFor="physicsExperience" className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                    Physics Background
+                  <label htmlFor="birthDate" className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                    Date of Birth
                   </label>
-                  <select
-                    id="physicsExperience"
-                    name="physicsExperience"
-                    value={formData.physicsExperience}
+                  <input
+                    type="date"
+                    id="birthDate"
+                    name="birthDate"
+                    value={formData.birthDate}
                     onChange={handleInputChange}
                     className="w-full px-4 py-4 bg-white/70 dark:bg-gray-700/70 border-2 border-gray-200 dark:border-gray-600 rounded-xl focus:ring-4 focus:ring-phiga-accent/30 focus:border-phiga-accent hover:border-phiga-accent/50 transition-all duration-300 text-gray-900 dark:text-white shadow-lg hover:shadow-xl"
-                  >
-                    <option value="">Select your physics experience level</option>
-                    {physicsLevels.map(level => (
-                      <option key={level} value={level}>{level}</option>
-                    ))}
-                  </select>
+                  />
                 </div>
               </div>
 

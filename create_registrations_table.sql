@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS public.registrations (
     country TEXT NOT NULL,
     school TEXT,
     grade_level TEXT,
-    physics_experience TEXT,
+    birth_date DATE,
     motivation TEXT
 );
 
@@ -20,6 +20,7 @@ ALTER TABLE public.registrations ENABLE ROW LEVEL SECURITY;
 DROP POLICY IF EXISTS "Allow anonymous insertions" ON public.registrations;
 DROP POLICY IF EXISTS "Allow authenticated users to view registrations" ON public.registrations;
 DROP POLICY IF EXISTS "Allow anonymous users to view registrations" ON public.registrations;
+DROP POLICY IF EXISTS "Allow anonymous users to update registrations" ON public.registrations;
 
 -- Create a policy to allow anonymous users to insert registrations
 CREATE POLICY "Allow anonymous insertions" ON public.registrations

@@ -19,7 +19,7 @@ export type Database = {
           country: string
           school?: string
           grade_level?: string
-          physics_experience?: string
+          birth_date?: string
           motivation?: string
           competition_code?: string
           code_generated_at?: string
@@ -35,7 +35,7 @@ export type Database = {
           country: string
           school?: string
           grade_level?: string
-          physics_experience?: string
+          birth_date?: string
           motivation?: string
           competition_code?: string
           code_generated_at?: string
@@ -51,7 +51,7 @@ export type Database = {
           country?: string
           school?: string
           grade_level?: string
-          physics_experience?: string
+          birth_date?: string
           motivation?: string
           competition_code?: string
           code_generated_at?: string
