@@ -112,7 +112,7 @@ export const createCompetitionCodeEmail = (
         </div>
         
         <div class="footer">
-          <p>If you have any questions, please contact us at support@phiga.org</p>
+          <p>If you have any questions, please contact us at phigacompetition@gmail.com</p>
           <p>© 2024 Physics International Global Assessment</p>
         </div>
       </div>
@@ -137,7 +137,7 @@ Next Steps:
 
 IMPORTANT: Keep this code confidential. Do not share it with anyone else.
 
-If you have any questions, please contact us at support@phiga.org
+If you have any questions, please contact us at phigacompetition@gmail.com
 
 © 2024 Physics International Global Assessment
   `;

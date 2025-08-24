@@ -73,14 +73,14 @@ const Contact: React.FC = () => {
       icon: FiMail,
       title: 'Email Us',
       description: 'Get in touch via email',
-      contact: 'hello@phiga.org',
+      contact: 'phigacompetition@gmail.com',
       color: 'text-blue-500'
     },
     {
       icon: FiPhone,
       title: 'Call Us',
       description: 'Speak with our team',
-      contact: '+20 115880 6644',
+      contact: '+20 115 880 6644',
       color: 'text-green-500'
     },
     // {
@@ -211,7 +211,17 @@ const Contact: React.FC = () => {
                       {info.description}
                     </p>
                     <div className="text-lg font-semibold text-phiga-accent whitespace-pre-line">
-                      {info.contact}
+                      {info.icon === FiMail ? (
+                        <a href={`mailto:${info.contact}`} className="hover:underline">
+                          {info.contact}
+                        </a>
+                      ) : info.icon === FiPhone ? (
+                        <a href={`tel:${info.contact}`} className="hover:underline">
+                          {info.contact}
+                        </a>
+                      ) : (
+                        info.contact
+                      )}
                     </div>
                   </div>
                 </div>

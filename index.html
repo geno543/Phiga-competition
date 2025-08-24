@@ -1,11 +1,23 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="dark">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" href="/favicon.png" type="image/png" />
     <link rel="shortcut icon" href="/favicon.png" type="image/png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>PHIGA - Physics International Gamefield Adventure</title>
+    <script>
+      // Set dark mode as default and prevent flash of light content
+      (function() {
+        const savedTheme = localStorage.getItem('phiga-theme');
+        const isDark = savedTheme ? savedTheme === 'dark' : true; // Default to dark mode
+        if (isDark) {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

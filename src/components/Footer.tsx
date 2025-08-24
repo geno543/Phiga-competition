@@ -3,9 +3,8 @@ import {
   FiMail, 
   FiExternalLink, 
   FiHeart,
-  FiTwitter,
   FiLinkedin,
-  FiGithub,
+  FiInstagram,
   FiZap,
   FiGlobe,
   FiStar,
@@ -123,7 +122,7 @@ const Footer: React.FC<FooterProps> = ({ setCurrentPage }) => {
             {/* Enhanced Social Media Links */}
             <div className="flex flex-wrap gap-4">
               <a 
-                href="#" 
+                href="mailto:phigacompetition@gmail.com" 
                 className="group relative p-5 bg-gradient-to-r from-white/15 to-white/10 backdrop-blur-xl hover:from-phiga-accent/80 hover:to-phiga-light/60 rounded-3xl transition-all duration-500 hover:scale-125 hover:shadow-2xl hover:shadow-phiga-accent/30 overflow-hidden"
                 aria-label="Email"
               >
@@ -131,23 +130,19 @@ const Footer: React.FC<FooterProps> = ({ setCurrentPage }) => {
                 <FiMail className="relative z-10 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300" size={28} />
               </a>
               <a 
-                href="#" 
+                href="https://www.instagram.com/quantastra.1/" 
+                target="_blank"
+                rel="noopener noreferrer"
                 className="group relative p-5 bg-gradient-to-r from-white/15 to-white/10 backdrop-blur-xl hover:from-phiga-accent/80 hover:to-phiga-light/60 rounded-3xl transition-all duration-500 hover:scale-125 hover:shadow-2xl hover:shadow-phiga-accent/30 overflow-hidden"
-                aria-label="GitHub"
+                aria-label="Instagram"
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
-                <FiGithub className="relative z-10 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300" size={28} />
+                <FiInstagram className="relative z-10 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300" size={28} />
               </a>
               <a 
-                href="#" 
-                className="group relative p-5 bg-gradient-to-r from-white/15 to-white/10 backdrop-blur-xl hover:from-phiga-accent/80 hover:to-phiga-light/60 rounded-3xl transition-all duration-500 hover:scale-125 hover:shadow-2xl hover:shadow-phiga-accent/30 overflow-hidden"
-                aria-label="Twitter"
-              >
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
-                <FiTwitter className="relative z-10 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300" size={28} />
-              </a>
-              <a 
-                href="#" 
+                href="https://www.linkedin.com/company/phigacompetition/?lipi=urn%3Ali%3Apage%3Ad_flagship3_search_srp_companies%3BD7sn5dEUTYCPkbGu6rqJ9g%3D%3D" 
+                target="_blank"
+                rel="noopener noreferrer"
                 className="group relative p-5 bg-gradient-to-r from-white/15 to-white/10 backdrop-blur-xl hover:from-phiga-accent/80 hover:to-phiga-light/60 rounded-3xl transition-all duration-500 hover:scale-125 hover:shadow-2xl hover:shadow-phiga-accent/30 overflow-hidden"
                 aria-label="LinkedIn"
               >
