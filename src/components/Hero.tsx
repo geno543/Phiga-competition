@@ -35,7 +35,7 @@ const Hero: React.FC<HeroProps> = ({ setCurrentPage }) => {
           
           <h1 className="text-5xl md:text-6xl lg:text-8xl font-heading font-black text-white mb-6 animate-fade-in leading-tight">
             <span className="bg-gradient-to-r from-white via-phiga-light to-phiga-accent bg-clip-text text-transparent">
-              PHIGA
+              PhIGA
             </span>
             <span className="block text-3xl md:text-4xl lg:text-5xl font-normal text-phiga-light/90 mt-2">
               Physics International Gamefield Adventure

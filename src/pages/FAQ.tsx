@@ -219,7 +219,7 @@ const FAQ: React.FC = () => {
           {/* Enhanced Subtitle */}
           <p className="text-xl md:text-3xl lg:text-4xl max-w-5xl mx-auto leading-relaxed font-medium mb-8">
             <span className="text-phiga-light/90">
-              Everything you need to know about the 
+              Everything you need to know about the{' '}
             </span>
             <span className="bg-gradient-to-r from-phiga-accent to-phiga-light bg-clip-text text-transparent font-bold">
               4-hour physics competition

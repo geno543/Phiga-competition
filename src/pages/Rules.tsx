@@ -170,13 +170,19 @@ const Rules: React.FC = () => {
           {/* Enhanced Subtitle */}
           <p className="text-xl md:text-3xl lg:text-4xl max-w-5xl mx-auto leading-relaxed font-medium mb-8">
             <span className="text-phiga-light/90">
-              Official 
+              Official{' '}
             </span>
             <span className="bg-gradient-to-r from-phiga-accent to-phiga-light bg-clip-text text-transparent font-bold">
               competition rules
             </span>
             <span className="text-phiga-light/90">
-              {' '}for the 4-hour physics challenge
+              {' '}for the{' '}
+            </span>
+            <span className="bg-gradient-to-r from-phiga-accent to-phiga-light bg-clip-text text-transparent font-bold">
+              4-hour physics
+            </span>
+            <span className="text-phiga-light/90">
+              {' '}challenge
             </span>
           </p>
         </div>

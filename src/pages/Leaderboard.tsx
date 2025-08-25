@@ -65,7 +65,7 @@ const Leaderboard: React.FC = () => {
           {/* Enhanced Subtitle */}
           <p className="text-xl md:text-3xl lg:text-4xl max-w-5xl mx-auto leading-relaxed font-medium mb-8">
             <span className="text-phiga-light/90">
-              Celebrating the 
+              Celebrating the{' '}
             </span>
             <span className="bg-gradient-to-r from-phiga-accent to-phiga-light bg-clip-text text-transparent font-bold">
               brightest minds
