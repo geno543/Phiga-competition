@@ -3,6 +3,8 @@ import { ThemeProvider } from './contexts/ThemeContext';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import Features from './components/Features';
+import Prizes from './components/Prizes';
+import Sponsors from './components/Sponsors';
 import Footer from './components/Footer';
 import About from './pages/About';
 import FAQ from './pages/FAQ';
@@ -36,6 +38,8 @@ function App() {
           <>
             <Hero setCurrentPage={setCurrentPage} />
             <Features />
+            <Prizes />
+            <Sponsors />
           </>
         );
     }
