@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { FiAward, FiGift, FiStar, FiDollarSign, FiTarget } from 'react-icons/fi';
+import { FiAward, FiDollarSign } from 'react-icons/fi';
 
 const Prizes: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
