@@ -479,7 +479,7 @@ const Ambassador: React.FC = () => {
                   <div className="bg-white/80 dark:bg-phiga-gray-800/80 backdrop-blur-sm rounded-xl p-8 border border-phiga-gray-200 dark:border-phiga-gray-700 text-center shadow-lg">
                     <FiGift className="text-4xl text-phiga-main mx-auto mb-4" />
                     <h3 className="text-xl font-bold text-phiga-main dark:text-white mb-3">PhysOlymp Coupons</h3>
-                    <p className="text-phiga-gray-600 dark:text-gray-300 mb-4">Top 2 ambassadors win premium coupons</p>
+                    <p className="text-phiga-gray-600 dark:text-gray-300 mb-4">Top 3 ambassadors win premium coupons</p>
                     <div className="text-phiga-main font-semibold">$80 PhysOlymp Coupons</div>
                   </div>
                   <div className="bg-white/80 dark:bg-phiga-gray-800/80 backdrop-blur-sm rounded-xl p-8 border border-phiga-gray-200 dark:border-phiga-gray-700 text-center shadow-lg">
@@ -522,7 +522,7 @@ const Ambassador: React.FC = () => {
                   {/* Top 2 Prize */}
                   <div className="bg-gradient-to-br from-phiga-main/20 to-phiga-dark/20 dark:from-phiga-main/20 dark:to-phiga-dark/20 backdrop-blur-sm rounded-xl p-8 border border-phiga-main/30 dark:border-phiga-main/30 text-center relative overflow-hidden shadow-lg">
                     <div className="absolute top-0 right-0 bg-phiga-main text-white px-3 py-1 rounded-bl-lg font-bold text-sm">
-                      #2
+#2-3
                     </div>
                     <div className="w-24 h-24 mx-auto mb-4 flex items-center justify-center">
                       <img 
@@ -531,15 +531,15 @@ const Ambassador: React.FC = () => {
                         className="max-w-full max-h-full object-contain"
                       />
                     </div>
-                    <h3 className="text-2xl font-bold text-phiga-main dark:text-white mb-3">Top 2 Ambassadors</h3>
+                    <h3 className="text-2xl font-bold text-phiga-main dark:text-white mb-3">Top 3 Ambassadors</h3>
                     <p className="text-phiga-gray-600 dark:text-gray-300 mb-6">Best performing ambassadors</p>
                     <div className="space-y-3">
                       <div className="bg-phiga-main/20 dark:bg-phiga-main/20 rounded-lg p-4">
                         <div className="text-phiga-main font-bold text-lg">PhysOlymp Coupons</div>
-                        <div className="text-phiga-main dark:text-white font-semibold">2 × $80</div>
+                        <div className="text-phiga-main dark:text-white font-semibold">3 × $80</div>
                         <div className="text-phiga-gray-600 dark:text-gray-300 text-sm">Physics Olympiad Guide</div>
                       </div>
-                      <div className="text-phiga-main font-semibold">Total Value: $160</div>
+                      <div className="text-phiga-main font-semibold">Total Value: $240</div>
                     </div>
                   </div>
                 </div>
