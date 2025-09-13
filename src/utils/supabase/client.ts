@@ -58,6 +58,73 @@ export type Database = {
           registration_status?: string
         }
       }
+      ambassadors: {
+        Row: {
+          id: string
+          created_at: string
+          name: string
+          email: string
+          password: string
+          school?: string
+          ambassador_code: string
+          referral_count: number
+          total_registrations: number
+          ranking: number
+          is_active: boolean
+        }
+        Insert: {
+          id?: string
+          created_at?: string
+          name: string
+          email: string
+          password: string
+          school?: string
+          ambassador_code: string
+          referral_count?: number
+          total_registrations?: number
+          ranking?: number
+          is_active?: boolean
+        }
+        Update: {
+          id?: string
+          created_at?: string
+          name?: string
+          email?: string
+          password?: string
+          school?: string
+          ambassador_code?: string
+          referral_count?: number
+          total_registrations?: number
+          ranking?: number
+          is_active?: boolean
+        }
+      }
+      referrals: {
+        Row: {
+          id: string
+          created_at: string
+          ambassador_code: string
+          referee_email: string
+          referee_name: string
+          registration_date: string
+        }
+        Insert: {
+          id?: string
+          created_at?: string
+          ambassador_code: string
+          referee_email: string
+          referee_name: string
+          registration_date?: string
+        }
+        Update: {
+          id?: string
+          created_at?: string
+          ambassador_code?: string
+          referee_email?: string
+          referee_name?: string
+          registration_date?: string
+        }
+      }
     }
   }
 }

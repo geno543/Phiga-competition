@@ -69,7 +69,8 @@ const Header: React.FC<HeaderProps> = ({ currentPage, setCurrentPage }) => {
     { name: 'FAQ', id: 'faq', icon: FiActivity },
     { name: 'Rules', id: 'rules', icon: FiFileText },
     { name: 'Leaderboard', id: 'leaderboard', icon: FiBarChart },
-    { name: 'Registration', id: 'registration', icon: FiStar },
+    { name: 'Ambassador', id: 'ambassador', icon: FiStar },
+    { name: 'Registration', id: 'registration', icon: FiZap },
     { name: 'Contact', id: 'contact', icon: FiMail }
   ];
 
@@ -227,10 +228,10 @@ const Header: React.FC<HeaderProps> = ({ currentPage, setCurrentPage }) => {
         </div>
         
         {/* Enhanced Mobile Navigation */}
-        <div className={`lg:hidden transition-all duration-500 ease-in-out overflow-hidden ${
-          isMenuOpen ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'
+        <div className={`lg:hidden transition-all duration-500 ease-in-out scroll-smooth ${
+          isMenuOpen ? 'max-h-screen opacity-100 overflow-y-auto' : 'max-h-0 opacity-0 overflow-hidden'
         }`}>
-          <nav className="relative mt-6 pb-6">
+          <nav className="relative mt-6 pb-8">
             {/* Enhanced Border */}
             <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-phiga-accent/50 to-transparent"></div>
             

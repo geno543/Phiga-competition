@@ -12,6 +12,7 @@ import Rules from './pages/Rules';
 import Leaderboard from './pages/Leaderboard';
 import Contact from './pages/Contact';
 import Registration from './pages/Registration';
+import Ambassador from './pages/Ambassador';
 import ProtectedAdmin from './pages/ProtectedAdmin';
 
 function App() {
@@ -31,6 +32,8 @@ function App() {
         return <Contact />;
       case 'registration':
         return <Registration />;
+      case 'ambassador':
+        return <Ambassador />;
       case 'admin':
         return <ProtectedAdmin />;
       default:
