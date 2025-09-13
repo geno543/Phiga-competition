@@ -1,22 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '../utils/supabase/client';
-import { 
-  FiUsers, 
-  FiTrendingUp, 
-  FiAward, 
-  FiCopy, 
-  FiMail, 
-  FiStar,
-  FiCheck,
-  FiGift,
-  FiTarget,
-  FiUserPlus,
-  FiLogIn,
-  FiLogOut
-} from 'react-icons/fi';
+
 
 const Ambassador: React.FC = () => {
-  const [isVisible, setIsVisible] = useState(false);
   const [ambassadorData, setAmbassadorData] = useState({
     name: '',
     email: '',
@@ -31,23 +17,11 @@ const Ambassador: React.FC = () => {
     email: '',
     password: ''
   });
-  const [copied, setCopied] = useState(false);
   const [authError, setAuthError] = useState('');
   const [currentView, setCurrentView] = useState<'welcome' | 'register' | 'login' | 'dashboard'>('welcome');
   const [leaderboardData, setLeaderboardData] = useState<any[]>([]);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    const sections = document.querySelectorAll('[data-section]');
-    sections.forEach(section => observer.observe(section));
 
     // Check if user is already logged in and verify they still exist in database
     const currentUser = localStorage.getItem('currentAmbassador');
@@ -88,10 +62,6 @@ const Ambassador: React.FC = () => {
 
     // Load leaderboard data
     loadLeaderboardData();
-
-    return () => {
-      sections.forEach(section => observer.unobserve(section));
-    };
   }, []);
 
   // Load leaderboard data from database

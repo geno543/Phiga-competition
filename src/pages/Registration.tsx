@@ -26,25 +26,7 @@ const generateDeviceFingerprint = (): string => {
   return Math.abs(hash).toString(36);
 };
 
-// Function to check if device has already registered
-const checkDeviceRegistration = (): { hasRegistered: boolean; registrationData?: any } => {
-  try {
-    const deviceId = generateDeviceFingerprint();
-    const deviceRegistrations = JSON.parse(localStorage.getItem('deviceRegistrations') || '{}');
-    
-    if (deviceRegistrations[deviceId]) {
-      return {
-        hasRegistered: true,
-        registrationData: deviceRegistrations[deviceId]
-      };
-    }
-    
-    return { hasRegistered: false };
-  } catch (error) {
-    console.error('Error checking device registration:', error);
-    return { hasRegistered: false };
-  }
-};
+
 
 // Function to record device registration
 const recordDeviceRegistration = (formData: any): void => {

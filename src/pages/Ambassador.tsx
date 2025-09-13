@@ -9,23 +9,17 @@ import {
   FiStar,
   FiCheck,
   FiGift,
-  FiTarget,
   FiUserPlus,
   FiLogIn,
   FiLogOut,
   FiEye,
   FiEyeOff,
   FiShare2,
-  FiSettings,
-  FiUser,
-  FiCalendar,
   FiZap,
   FiShield,
   FiExternalLink,
   FiBarChart,
-  FiActivity,
-  FiDollarSign,
-  FiPercent
+  FiActivity
 } from 'react-icons/fi';
 import { HiSparkles } from 'react-icons/hi';
 
@@ -36,6 +30,8 @@ interface Analytics {
   thisWeek: number;
   avgPerMonth: number;
   rankChange: number;
+  conversionRate: number;
+  totalEarnings: number;
 }
 
 const Ambassador: React.FC = () => {
@@ -65,7 +61,9 @@ const Ambassador: React.FC = () => {
     thisMonth: 0,
     thisWeek: 0,
     avgPerMonth: 0,
-    rankChange: 0
+    rankChange: 0,
+    conversionRate: 0,
+    totalEarnings: 0
   });
   const [isRefreshing, setIsRefreshing] = useState(false);
 
@@ -796,7 +794,7 @@ const Ambassador: React.FC = () => {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
                     <div className="bg-gradient-to-br from-blue-500/20 to-blue-600/20 backdrop-blur-sm p-4 rounded-xl border border-blue-400/30">
                       <FiUsers className="text-2xl text-blue-400 mx-auto mb-1" />
-                      <div className="text-2xl font-bold text-blue-400">{ambassadorData.referralCount}</div>
+                      <div className="text-2xl font-bold text-blue-400">{analytics.totalReferrals}</div>
                       <div className="text-xs text-blue-300">Total Referrals</div>
                     </div>
                     <div className="bg-gradient-to-br from-green-500/20 to-green-600/20 backdrop-blur-sm p-4 rounded-xl border border-green-400/30">
