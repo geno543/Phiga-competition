@@ -18,14 +18,47 @@ import ProtectedAdmin from './pages/ProtectedAdmin';
 function App() {
   const [currentPage, setCurrentPage] = useState('home');
 
-  // Handle URL-based routing for referral links
+  // Handle URL-based routing for referral links and direct page access
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const ref = urlParams.get('ref');
+    const path = window.location.pathname;
     
     // If there's a referral code in the URL, go to registration page
     if (ref) {
       setCurrentPage('registration');
+      return;
+    }
+    
+    // Handle direct URL access to specific pages
+    switch (path) {
+      case '/about':
+        setCurrentPage('about');
+        break;
+      case '/faq':
+        setCurrentPage('faq');
+        break;
+      case '/rules':
+        setCurrentPage('rules');
+        break;
+      case '/leaderboard':
+        setCurrentPage('leaderboard');
+        break;
+      case '/contact':
+        setCurrentPage('contact');
+        break;
+      case '/registration':
+        setCurrentPage('registration');
+        break;
+      case '/ambassador':
+        setCurrentPage('ambassador');
+        break;
+      case '/admin':
+        setCurrentPage('admin');
+        break;
+      default:
+        setCurrentPage('home');
+        break;
     }
   }, []);
 

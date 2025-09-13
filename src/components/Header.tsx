@@ -29,6 +29,12 @@ const Header: React.FC<HeaderProps> = ({ currentPage, setCurrentPage }) => {
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
+  const navigateToPage = (pageId: string) => {
+    const path = pageId === 'home' ? '/' : `/${pageId}`;
+    window.history.pushState({}, '', path);
+    setCurrentPage(pageId);
+  };
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
@@ -137,7 +143,7 @@ const Header: React.FC<HeaderProps> = ({ currentPage, setCurrentPage }) => {
               return (
                 <button
                   key={item.id}
-                  onClick={() => setCurrentPage(item.id)}
+                  onClick={() => navigateToPage(item.id)}
                   onMouseEnter={() => setActiveHover(item.id)}
                   onMouseLeave={() => setActiveHover(null)}
                   className={`group relative flex items-center space-x-2 px-4 py-3 rounded-2xl transition-all duration-500 overflow-hidden ${
@@ -247,7 +253,7 @@ const Header: React.FC<HeaderProps> = ({ currentPage, setCurrentPage }) => {
                   <button
                     key={item.id}
                     onClick={() => {
-                      setCurrentPage(item.id);
+                      navigateToPage(item.id);
                       setIsMenuOpen(false);
                     }}
                     className={`group relative flex items-center space-x-4 px-6 py-4 mx-2 rounded-2xl text-left transition-all duration-500 overflow-hidden ${
