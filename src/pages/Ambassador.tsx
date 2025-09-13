@@ -80,7 +80,7 @@ const Ambassador: React.FC = () => {
 
   // Share via email function
   const shareViaEmail = () => {
-    const referralLink = `https://www.phigacompetition.org/register?ref=${ambassadorData.ambassadorCode}`;
+    const referralLink = `${window.location.origin}/?ref=${ambassadorData.ambassadorCode}`;
     const subject = encodeURIComponent('Join PHIGA - Physics International Gamefield Adventure!');
     const body = encodeURIComponent(
       `Hey everyone, I wanted to share a great physics opportunity for anyone who loves real, think-on-your-feet problem solving:\n\nPHIGA — Physics International Gamefield Adventure\nA global, free competition that tests real understanding (not memorization). Each problem starts with a short everyday-scenario video and asks you to explain/solve what's happening using physics.\n\nKEY DETAILS\n1) Format: 30 video-based questions in one session; total duration 4 hours; held in October (time on the site).\n2) Tracks: Grade 10 / Grade 11 / Grade 12 / Open (fair competition by level).\n3) Tools: Calculator and quick lookup of constants/formulas are okay. AI tools (e.g., ChatGPT), coding solvers, or outside help are not allowed (cheating = disqualification).\n4) Scoring: First-try correct = 5 points. Each wrong attempt reduces the max by 1 (minimum 1 if solved).\n5) Recognition: Global leaderboard (hidden for the last 30 minutes), digital certificates, and achievement badges (great for LinkedIn).\n6) Who can join: Anyone, from anywhere. You just need a computer, internet, and a problem-solving mindset.\n\nREGISTER\n${referralLink}\n\nUPDATES & SUPPORT\nInstagram: https://www.instagram.com/quantastra.1/\nWhatsApp Channel: https://whatsapp.com/channel/0029VbBc4vr4dTnAWVArKJ37\nWhatsApp Support: https://chat.whatsapp.com/LZJ4BlUKtr3COhGSrMCtXi?mode=ems_copy_c\nTelegram Group: https://t.me/+EKKS9HqRyN03ZmU0`
@@ -90,7 +90,7 @@ const Ambassador: React.FC = () => {
 
   // Share on social media function
   const shareOnSocial = () => {
-    const referralLink = `https://www.phigacompetition.org/register?ref=${ambassadorData.ambassadorCode}`;
+    const referralLink = `${window.location.origin}/?ref=${ambassadorData.ambassadorCode}`;
     const text = encodeURIComponent(
       `Hey everyone, I wanted to share a great physics opportunity for anyone who loves real, think-on-your-feet problem solving: PHIGA — Physics International Gamefield Adventure. A global, free competition that tests real understanding (not memorization). Register: ${referralLink} #PHIGA #Physics #Competition`
     );
@@ -109,7 +109,7 @@ const Ambassador: React.FC = () => {
 
   // Copy full message function
   const copyFullMessage = () => {
-    const referralLink = `https://www.phigacompetition.org/register?ref=${ambassadorData.ambassadorCode}`;
+    const referralLink = `${window.location.origin}/?ref=${ambassadorData.ambassadorCode}`;
     const fullMessage = `Hey everyone, I wanted to share a great physics opportunity for anyone who loves real, think-on-your-feet problem solving:\n\nPHIGA — Physics International Gamefield Adventure\nA global, free competition that tests real understanding (not memorization). Each problem starts with a short everyday-scenario video and asks you to explain/solve what's happening using physics.\n\nKEY DETAILS\n1) Format: 30 video-based questions in one session; total duration 4 hours; held in October (time on the site).\n2) Tracks: Grade 10 / Grade 11 / Grade 12 / Open (fair competition by level).\n3) Tools: Calculator and quick lookup of constants/formulas are okay. AI tools (e.g., ChatGPT), coding solvers, or outside help are not allowed (cheating = disqualification).\n4) Scoring: First-try correct = 5 points. Each wrong attempt reduces the max by 1 (minimum 1 if solved).\n5) Recognition: Global leaderboard (hidden for the last 30 minutes), digital certificates, and achievement badges (great for LinkedIn).\n6) Who can join: Anyone, from anywhere. You just need a computer, internet, and a problem-solving mindset.\n\nREGISTER\n${referralLink}\n\nUPDATES & SUPPORT\nInstagram: https://www.instagram.com/quantastra.1/\nWhatsApp Channel: https://whatsapp.com/channel/0029VbBc4vr4dTnAWVArKJ37\nWhatsApp Support: https://chat.whatsapp.com/LZJ4BlUKtr3COhGSrMCtXi?mode=ems_copy_c\nTelegram Group: https://t.me/+EKKS9HqRyN03ZmU0`;
     
     copyToClipboard(fullMessage);
@@ -861,11 +861,11 @@ const Ambassador: React.FC = () => {
                           <div className="flex items-center gap-3">
                             <div className="flex-1 bg-white/10 dark:bg-gray-700/50 p-3 rounded-lg border border-white/20 dark:border-gray-600/50">
                               <code className="text-phiga-gray-600 dark:text-gray-300 text-sm break-all">
-                                https://www.phigacompetition.org/register?ref={ambassadorData.ambassadorCode}
+                                {window.location.origin}/?ref={ambassadorData.ambassadorCode}
                               </code>
                             </div>
                             <button
-                              onClick={() => copyToClipboard(`https://www.phigacompetition.org/register?ref=${ambassadorData.ambassadorCode}`)}
+                              onClick={() => copyToClipboard(`${window.location.origin}/?ref=${ambassadorData.ambassadorCode}`)}
                               className="p-3 bg-phiga-main hover:bg-phiga-main/80 text-white rounded-lg transition-colors"
                               title="Copy link"
                             >

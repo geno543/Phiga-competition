@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ThemeProvider } from './contexts/ThemeContext';
 import Header from './components/Header';
 import Hero from './components/Hero';
@@ -17,6 +17,17 @@ import ProtectedAdmin from './pages/ProtectedAdmin';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('home');
+
+  // Handle URL-based routing for referral links
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const ref = urlParams.get('ref');
+    
+    // If there's a referral code in the URL, go to registration page
+    if (ref) {
+      setCurrentPage('registration');
+    }
+  }, []);
 
   const renderPage = () => {
     switch (currentPage) {
