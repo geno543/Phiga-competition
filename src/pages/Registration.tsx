@@ -330,7 +330,8 @@ import {
   FiAlertCircle,
   FiLoader,
   FiUsers,
-  FiStar
+  FiStar,
+  FiX
 } from 'react-icons/fi';
 import { HiSparkles } from 'react-icons/hi2';
 
@@ -348,6 +349,9 @@ interface RegistrationData {
 }
 
 const Registration: React.FC = () => {
+  // Registration is now closed
+  const isRegistrationClosed = true;
+
   const [formData, setFormData] = useState<RegistrationData>({
     firstName: '',
     lastName: '',
@@ -380,6 +384,62 @@ const Registration: React.FC = () => {
     // Run cleanup on page load to remove any suspicious registrations
     cleanupSuspiciousRegistrations();
   }, []);
+
+  // If registration is closed, show closed message
+  if (isRegistrationClosed) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-phiga-dark via-phiga-main to-phiga-accent relative overflow-hidden">
+        {/* Enhanced Background Effects */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          {/* Animated gradient orbs */}
+          <div className="absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-r from-phiga-accent to-phiga-light rounded-full mix-blend-multiply filter blur-3xl opacity-60 animate-pulse"></div>
+          <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-r from-phiga-main to-phiga-accent rounded-full mix-blend-multiply filter blur-3xl opacity-60 animate-pulse animation-delay-2000"></div>
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-gradient-to-r from-phiga-accent to-phiga-main rounded-full mix-blend-multiply filter blur-3xl opacity-40 animate-pulse animation-delay-4000"></div>
+          
+          {/* Floating particles */}
+          <div className="absolute top-20 left-20 w-2 h-2 bg-phiga-accent rounded-full animate-bounce animation-delay-1000"></div>
+          <div className="absolute top-40 right-32 w-3 h-3 bg-phiga-light rounded-full animate-bounce animation-delay-3000"></div>
+          <div className="absolute bottom-32 left-1/4 w-2 h-2 bg-phiga-accent rounded-full animate-bounce animation-delay-5000"></div>
+          <div className="absolute bottom-20 right-20 w-3 h-3 bg-phiga-main rounded-full animate-bounce animation-delay-2000"></div>
+          
+          {/* Grid pattern overlay */}
+          <div className="absolute inset-0 bg-grid-pattern opacity-5 dark:opacity-10"></div>
+        </div>
+
+        {/* Registration Closed Message */}
+        <div className={`relative pt-20 pb-16 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div className="inline-flex items-center gap-3 px-6 py-3 bg-red-500/20 backdrop-blur-xl border border-red-500/30 rounded-full shadow-2xl mb-8">
+              <FiX className="w-5 h-5 text-red-400" />
+              <span className="text-sm font-semibold text-red-300">Registration Closed</span>
+            </div>
+
+            <h1 className="text-5xl md:text-7xl font-heading font-black mb-6 tracking-tight">
+              <span className="bg-gradient-to-r from-white via-phiga-light to-phiga-accent bg-clip-text text-transparent">
+                Registration Closed
+              </span>
+            </h1>
+            <p className="text-xl md:text-2xl text-phiga-light/80 mb-12 max-w-4xl mx-auto leading-relaxed font-medium">
+              Thank you for your interest in PHIGA! Registration for this competition has now closed. 
+              <br />
+              <span className="bg-gradient-to-r from-phiga-accent to-phiga-light bg-clip-text text-transparent font-bold">
+                Stay tuned for future competitions and updates!
+              </span>
+            </p>
+            
+            <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-8 max-w-2xl mx-auto">
+              <h2 className="text-2xl font-bold text-white mb-4">What's Next?</h2>
+              <div className="space-y-4 text-phiga-light/90">
+                <p>• Follow us on social media for competition updates</p>
+                <p>• Check back for future competition announcements</p>
+                <p>• Join our community to stay connected with fellow physics enthusiasts</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   // Device check effect
   useEffect(() => {

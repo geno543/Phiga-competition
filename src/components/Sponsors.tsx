@@ -38,6 +38,14 @@ const Sponsors: React.FC = () => {
       website: 'https://physolymp.com/',
       description: 'Comprehensive guide for Physics Olympiad preparation and training',
       color: 'purple'
+    },
+    {
+      name: 'Wolfram',
+      shortName: 'Wolfram',
+      logo: '/Wolfram.png',
+      website: 'https://www.wolfram.com/',
+      description: 'Computational intelligence platform powering scientific discovery and innovation',
+      color: 'red'
     }
   ];
 
@@ -108,7 +116,7 @@ const Sponsors: React.FC = () => {
         </div>
 
         {/* Sponsors Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 max-w-7xl mx-auto">
           {sponsors.map((sponsor, index) => (
             <div
               key={sponsor.name}

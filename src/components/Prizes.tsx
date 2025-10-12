@@ -46,8 +46,21 @@ const Prizes: React.FC = () => {
       gradient: 'from-purple-500 to-purple-600',
       prizes: [
         { category: 'Top 8 Competitors', count: 8, description: 'Highest scoring participants' },
-        { category: 'Top 2 Ambassadors', count: 2, description: 'Best performing ambassadors' }
+        { category: 'Top 3 Ambassadors', count: 3, description: 'Best performing ambassadors' }
       ]
+    },
+    {
+      title: 'Wolfram Accounts',
+      subtitle: 'Wolfram Research',
+      totalCoupons: 10,
+      couponValue: 1660,
+      logo: '/Wolfram.png',
+      color: 'red',
+      gradient: 'from-red-500 to-red-600',
+      prizes: [
+        { category: 'Top 10 Competitors', count: 10, description: 'One-year Wolfram accounts ($1660 each)' }
+      ],
+      specialNote: 'Plus 3-month accounts for all competitors if >1100 participants ($415 each)'
     }
   ];
 
@@ -121,7 +134,7 @@ const Prizes: React.FC = () => {
         </div>
 
         {/* Prize Categories */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
           {prizeCategories.map((category, index) => (
             <div
               key={category.title}
@@ -165,11 +178,20 @@ const Prizes: React.FC = () => {
                       </div>
                       <div className="text-right">
                         <div className="text-xl font-bold text-phiga-accent">{prize.count}</div>
-                        <div className="text-xs text-phiga-gray-500">coupons</div>
+                        <div className="text-xs text-phiga-gray-500">{category.title.includes('Wolfram') ? 'accounts' : 'coupons'}</div>
                       </div>
                     </div>
                   </div>
                 ))}
+                
+                {/* Special Note for Wolfram */}
+                {category.specialNote && (
+                  <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg p-4">
+                    <p className="text-sm text-yellow-800 dark:text-yellow-200 font-medium">
+                      <span className="font-bold">Bonus:</span> {category.specialNote}
+                    </p>
+                  </div>
+                )}
               </div>
             </div>
           ))}
@@ -189,11 +211,11 @@ const Prizes: React.FC = () => {
               Ready to Win These Prizes?
             </h3>
             <p className="text-phiga-gray-600 dark:text-phiga-gray-300 mb-4">
-              Register now and compete for educational coupons worth $1,000!
+              Register now and compete for educational prizes worth over $17,000!
             </p>
             <div className="flex items-center justify-center gap-2 text-yellow-600 dark:text-yellow-400 font-semibold">
               <FiAward size={18} />
-              <span>10 Total Winners • Top 8 Competitors + Top 2 Ambassadors</span>
+              <span>29 Total Winners • Top 23 Competitors + Top 4 Ambassadors</span>
             </div>
           </div>
         </div>
