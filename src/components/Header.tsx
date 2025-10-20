@@ -72,6 +72,7 @@ const Header: React.FC<HeaderProps> = ({ currentPage, setCurrentPage }) => {
   const navigationItems = [
     { name: 'Home', id: 'home', icon: FiHome },
     { name: 'About', id: 'about', icon: FiInfo },
+    { name: 'Competition', id: 'competition-access', icon: FiShield },
     { name: 'FAQ', id: 'faq', icon: FiActivity },
     { name: 'Rules', id: 'rules', icon: FiFileText },
     { name: 'Leaderboard', id: 'leaderboard', icon: FiBarChart },

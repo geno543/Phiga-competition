@@ -9,7 +9,12 @@ import Footer from './components/Footer';
 import About from './pages/About';
 import FAQ from './pages/FAQ';
 import Rules from './pages/Rules';
+import CompetitionAccess from './pages/CompetitionAccess';
+import Competition from './pages/Competition';
+import CompetitionGame from './pages/CompetitionGame';
+import LiveLeaderboard from './pages/LiveLeaderboard';
 import Leaderboard from './pages/Leaderboard';
+import LeaderboardClosed from './pages/LeaderboardClosed';
 import Contact from './pages/Contact';
 import Registration from './pages/Registration';
 import Ambassador from './pages/Ambassador';
@@ -56,6 +61,12 @@ function App() {
       case '/admin':
         setCurrentPage('admin');
         break;
+      case '/competition':
+        setCurrentPage('competition-access');
+        break;
+      case '/competition-admin':
+        setCurrentPage('competition-admin');
+        break;
       default:
         setCurrentPage('home');
         break;
@@ -80,6 +91,10 @@ function App() {
         return <Ambassador />;
       case 'admin':
         return <ProtectedAdmin />;
+      case 'competition-access':
+        return <CompetitionAccess setCurrentPage={setCurrentPage} />;
+      case 'competition-game':
+        return <Competition />;
       default:
         return (
           <>
@@ -95,9 +110,9 @@ function App() {
   return (
      <ThemeProvider>
        <div className="min-h-screen bg-phiga-light dark:bg-phiga-gray-900 transition-colors duration-300">
-         <Header currentPage={currentPage} setCurrentPage={setCurrentPage} />
+         {currentPage !== 'competition-access' && currentPage !== 'competition' && currentPage !== 'competition-game' && <Header currentPage={currentPage} setCurrentPage={setCurrentPage} />}
          {renderPage()}
-         <Footer currentPage={currentPage} setCurrentPage={setCurrentPage} />
+         {currentPage !== 'competition-access' && currentPage !== 'competition' && currentPage !== 'competition-game' && <Footer currentPage={currentPage} setCurrentPage={setCurrentPage} />}
        </div>
      </ThemeProvider>
    );

@@ -65,11 +65,11 @@ const Hero: React.FC<HeroProps> = ({ setCurrentPage }) => {
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 mb-12 animate-slide-up">
             <button 
-              onClick={() => setCurrentPage('registration')}
+              onClick={() => setCurrentPage('competition-access')}
               className="group bg-gradient-to-r from-phiga-accent to-phiga-light hover:from-phiga-light hover:to-phiga-accent text-phiga-dark px-10 py-5 rounded-2xl font-bold text-lg transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-phiga-accent/25 flex items-center justify-center gap-3 transform hover:-translate-y-1"
             >
               <FiPlay size={24} className="group-hover:scale-110 transition-transform" />
-              Register Now
+              Join Competition
             </button>
             <button 
               onClick={() => setCurrentPage('rules')}
