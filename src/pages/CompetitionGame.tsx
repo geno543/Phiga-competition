@@ -580,23 +580,9 @@ export default function CompetitionGame({ participant, onScoreUpdate, onParticip
       console.error('Question ID:', currentQuestion?.id);
       console.error('Attempt Number:', attemptNumber);
       
-      // Don't block user - show error briefly then continue
-      const errorMessage = error instanceof Error ? error.message : 'Error submitting answer';
-      setFeedback({ type: 'error', message: errorMessage + '. Continuing anyway...' });
-      
-      // Continue video after brief pause
-      setTimeout(() => {
-        setShowQuestion(false);
-        setAnswer('');
-        setAttemptNumber(1);
-        setFeedback(null);
-        
-        const video = videoRef.current;
-        if (video) {
-          video.play();
-          setIsVideoPlaying(true);
-        }
-      }, 2000);
+      // Show error but don't block - let them try again
+      const errorMessage = error instanceof Error ? error.message : 'Failed to submit answer';
+      setFeedback({ type: 'error', message: errorMessage + '. Please try again.' });
     }
   };
 
