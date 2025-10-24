@@ -16,32 +16,54 @@ function AtomVisualization() {
   const sceneRef = useRef<THREE.Scene | null>(null);
   const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
   const animationIdRef = useRef<number | null>(null);
+  const initializedRef = useRef(false);
 
   useEffect(() => {
     if (!mountRef.current) return;
+    if (initializedRef.current) return; // Prevent double initialization
 
-    // Small delay to ensure container is properly mounted
+    let handleResize: (() => void) | null = null;
+
     const initializeScene = () => {
       if (!mountRef.current) return;
+      if (initializedRef.current) return; // Double check
+      
+      initializedRef.current = true;
+
+      // Check if canvas already exists
+      const existingCanvas = mountRef.current.querySelector('canvas');
+      if (existingCanvas) {
+        console.log('Canvas already exists, skipping initialization');
+        return;
+      }
 
       // Create an empty scene
       const scene = new THREE.Scene();
       sceneRef.current = scene;
 
       // Get container dimensions with fallback
-      const width = mountRef.current.clientWidth || 1200;
-      const height = mountRef.current.clientHeight || 1200;
+      const width = mountRef.current.clientWidth || 500;
+      const height = mountRef.current.clientHeight || 500;
       
       console.log('Atom container dimensions:', width, height);
+      
+      // Check for valid dimensions
+      if (width === 0 || height === 0) {
+        console.warn('Container has zero dimensions, retrying...');
+        setTimeout(initializeScene, 200);
+        return;
+      }
 
     // Create perspective camera for better 3D visualization
       const camera = new THREE.PerspectiveCamera(
-        75,
+        50,
         width / height,
         1,
-        2000
+        3000
       );
-      camera.position.z = 900;
+      // Scale camera distance based on container size
+      const scaleFactor = Math.min(width, height) / 500;
+      camera.position.z = 550 * scaleFactor;
       camera.position.y = 0;
       camera.position.x = 0;
       camera.lookAt(0, 0, 0);
@@ -56,23 +78,22 @@ function AtomVisualization() {
     // Configure renderer
     renderer.setClearColor("#000000", 0);
     renderer.setSize(width, height);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     mountRef.current.appendChild(renderer.domElement);
 
-    // Lighting setup
-    const ambientLight = new THREE.AmbientLight(Colors.phigaLight, 0.4);
+    // Enhanced lighting setup
+    const ambientLight = new THREE.AmbientLight(Colors.white, 0.6);
     scene.add(ambientLight);
 
     const lights: THREE.Light[] = [];
-    lights[0] = new THREE.PointLight(Colors.phigaAccent, 0.8, 0);
-    lights[0].position.set(200, 0, 0);
+    lights[0] = new THREE.PointLight(Colors.phigaAccent, 1.0, 0);
+    lights[0].position.set(300, 0, 200);
 
-    lights[1] = new THREE.PointLight(Colors.phigaMain, 0.6, 0);
-    lights[1].position.set(0, 200, 0);
+    lights[1] = new THREE.PointLight(Colors.phigaMain, 0.8, 0);
+    lights[1].position.set(-200, 200, 100);
 
-    lights[2] = new THREE.PointLight(0xffffff, 0.5, 0);
-    lights[2].position.set(0, 100, 100);
-
-    lights[3] = new THREE.AmbientLight(0xffffff, 0.3);
+    lights[2] = new THREE.PointLight(Colors.blue, 0.5, 0);
+    lights[2].position.set(0, -150, 150);
 
     lights.forEach(light => scene.add(light));
 
@@ -111,15 +132,17 @@ function AtomVisualization() {
       return sphere;
     }
 
-    // Create valence shells
-    const baseRadius = width > height ? (height - 40) / 2 : (width - 40) / 2;
+    // Create valence shells - optimized sizing
+    const minDimension = Math.min(width, height);
+    const baseRadius = minDimension / 4;
 
     function createValence(ringNumber: number, electronCount: number) {
-      const radius = 100 + (baseRadius / 8) * ringNumber;
+      const radius = 40 + (baseRadius / 3.5) * ringNumber;
 
+      const tubeThickness = Math.max(1, baseRadius / 180);
       const ring = createTorus(
         radius,
-        baseRadius / 400,
+        tubeThickness,
         20,
         100,
         Math.PI * 2,
@@ -137,7 +160,7 @@ function AtomVisualization() {
         angle += angleIncrement;
 
         const electron = createSphere({
-          r: 120,
+          r: 80,
           x: posX,
           y: posY,
           color: Colors.blue
@@ -152,13 +175,16 @@ function AtomVisualization() {
       return group;
     }
 
-    // Create nucleus
-    const nucleus = createSphere({ r: 15, color: Colors.phigaMain });
+    // Create nucleus with glow
+    const nucleus = createSphere({ r: 12, color: Colors.phigaMain });
+    const nucleusGlow = new THREE.PointLight(Colors.orange, 0.6, baseRadius);
+    nucleusGlow.position.set(0, 0, 0);
+    scene.add(nucleusGlow);
     scene.add(nucleus);
 
-    // Create electron shells
-    const shellCounts = [2, 6, 10, 14, 18];
-    const valenceCount = 6;
+    // Create electron shells - balanced count
+    const shellCounts = [2, 6, 10, 14];
+    const valenceCount = 4;
     const valences: THREE.Group[] = [];
 
     for (let i = 1; i <= valenceCount; i++) {
@@ -190,62 +216,75 @@ function AtomVisualization() {
     render();
 
     // Handle window resize
-    const handleResize = () => {
+    handleResize = () => {
       if (!mountRef.current) return;
       
       const newWidth = mountRef.current.clientWidth;
       const newHeight = mountRef.current.clientHeight;
       
+      if (newWidth === 0 || newHeight === 0) return;
+      
       camera.aspect = newWidth / newHeight;
       camera.updateProjectionMatrix();
       
+      const newScaleFactor = Math.min(newWidth, newHeight) / 500;
+      camera.position.z = 550 * newScaleFactor;
+      
       renderer.setSize(newWidth, newHeight);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     };
 
     window.addEventListener('resize', handleResize);
-
-      // Cleanup function
-      return () => {
-        window.removeEventListener('resize', handleResize);
-        
-        if (animationIdRef.current) {
-          cancelAnimationFrame(animationIdRef.current);
-        }
-        
-        if (rendererRef.current && mountRef.current) {
-          mountRef.current.removeChild(rendererRef.current.domElement);
-          rendererRef.current.dispose();
-        }
-        
-        // Clean up geometries and materials
-        if (sceneRef.current) {
-          sceneRef.current.traverse((object) => {
-            if (object instanceof THREE.Mesh) {
-              object.geometry.dispose();
-              if (Array.isArray(object.material)) {
-                object.material.forEach(material => material.dispose());
-              } else {
-                object.material.dispose();
-              }
-            }
-          });
-        }
-      };
     };
 
-    // Initialize scene with a small delay
-    const timeoutId = setTimeout(initializeScene, 100);
+    // Initialize scene immediately
+    initializeScene();
     
     return () => {
-      clearTimeout(timeoutId);
+      initializedRef.current = false;
+      
+      if (handleResize !== null) {
+        window.removeEventListener('resize', handleResize);
+      }
+      
+      if (animationIdRef.current) {
+        cancelAnimationFrame(animationIdRef.current);
+        animationIdRef.current = null;
+      }
+      
+      if (rendererRef.current && mountRef.current && rendererRef.current.domElement.parentNode === mountRef.current) {
+        mountRef.current.removeChild(rendererRef.current.domElement);
+        rendererRef.current.dispose();
+        rendererRef.current = null;
+      }
+      
+      // Clean up geometries and materials
+      if (sceneRef.current) {
+        sceneRef.current.traverse((object) => {
+          if (object instanceof THREE.Mesh) {
+            object.geometry.dispose();
+            if (Array.isArray(object.material)) {
+              object.material.forEach(material => material.dispose());
+            } else {
+              object.material.dispose();
+            }
+          }
+        });
+        sceneRef.current = null;
+      }
     };
   }, []);
 
   return (
     <div 
       ref={mountRef} 
-      className="w-full h-full overflow-hidden"
-      style={{ width: '100%', height: '100%' }}
+      className="w-full h-full flex items-center justify-center"
+      style={{ 
+        width: '100%', 
+        height: '100%',
+        minHeight: '400px',
+        position: 'relative'
+      }}
     />
   );
 }

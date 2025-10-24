@@ -82,8 +82,8 @@ const Hero: React.FC<HeroProps> = ({ setCurrentPage }) => {
         </div>
 
         {/* 3D Atom Visualization Area */}
-        <div className="hidden lg:block lg:w-1/2 lg:pl-12">
-          <div className="relative w-full h-full min-h-screen flex items-center justify-center">
+        <div className="lg:w-1/2 lg:pl-8 mt-8 lg:mt-0 flex items-center justify-center">
+          <div className="relative w-full max-w-[550px] h-[420px] sm:h-[480px] lg:h-[550px]">
             <AtomVisualization />
           </div>
         </div>

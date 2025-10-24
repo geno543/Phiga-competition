@@ -92,7 +92,7 @@ function App() {
       case 'admin':
         return <ProtectedAdmin />;
       case 'competition-access':
-        return <CompetitionAccess setCurrentPage={setCurrentPage} />;
+        return <Competition />;
       case 'competition-game':
         return <Competition />;
       default:
@@ -110,9 +110,9 @@ function App() {
   return (
      <ThemeProvider>
        <div className="min-h-screen bg-phiga-light dark:bg-phiga-gray-900 transition-colors duration-300">
-         {currentPage !== 'competition-access' && currentPage !== 'competition' && currentPage !== 'competition-game' && <Header currentPage={currentPage} setCurrentPage={setCurrentPage} />}
+         {currentPage !== 'competition-access' && currentPage !== 'competition-game' && <Header currentPage={currentPage} setCurrentPage={setCurrentPage} />}
          {renderPage()}
-         {currentPage !== 'competition-access' && currentPage !== 'competition' && currentPage !== 'competition-game' && <Footer currentPage={currentPage} setCurrentPage={setCurrentPage} />}
+         {currentPage !== 'competition-access' && currentPage !== 'competition-game' && <Footer currentPage={currentPage} setCurrentPage={setCurrentPage} />}
        </div>
      </ThemeProvider>
    );
