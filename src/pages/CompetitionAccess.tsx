@@ -41,8 +41,13 @@ const CompetitionAccess: React.FC<CompetitionAccessProps> = ({ setCurrentPage })
   };
 
   const { competitionStart, competitionEnd, cairoTime } = getCompetitionTiming();
-  const isCompetitionActive = cairoTime >= competitionStart && cairoTime <= competitionEnd;
-  const hasCompetitionEnded = cairoTime > competitionEnd;
+  
+  // COMPETITION CLOSED - Force ended
+  const isCompetitionActive = false;
+  const hasCompetitionEnded = true;
+  
+  // const isCompetitionActive = cairoTime >= competitionStart && cairoTime <= competitionEnd;
+  // const hasCompetitionEnded = cairoTime > competitionEnd;
 
   // Format time remaining until competition starts
   const getTimeUntilStart = () => {
@@ -304,21 +309,38 @@ const CompetitionAccess: React.FC<CompetitionAccessProps> = ({ setCurrentPage })
             </h1>
             
             <p className="text-xl text-phiga-light/80 mb-8">
-              Thank you to all participants who competed in PHIGA!
+              Thank you to all participants who competed in PHIGA Season 1!
             </p>
             
-            <div className="bg-red-500/20 border-2 border-red-500/50 rounded-2xl p-6 mb-8">
-              <h3 className="text-2xl font-bold text-red-300 mb-2">🏁 Competition Closed</h3>
+            <div className="bg-red-500/20 border-2 border-red-500/50 rounded-2xl p-6 mb-6">
+              <h3 className="text-2xl font-bold text-red-300 mb-2">🏁 Season 1 Closed</h3>
               <p className="text-red-100 text-lg">
-                The competition ended at 12:00 AM (midnight) Cairo Time
+                The competition has ended. Thank you for participating!
               </p>
+            </div>
+
+            <div className="bg-phiga-accent/20 border-2 border-phiga-accent/50 rounded-2xl p-6 mb-6">
+              <h3 className="text-xl font-bold text-phiga-accent mb-3">📢 Next Season Coming Soon!</h3>
+              <p className="text-white mb-4">
+                Follow us on social media to be the first to know when the next season launches:
+              </p>
+              <div className="flex flex-col gap-3">
+                <a href="https://www.facebook.com/profile.php?id=61566168965768" target="_blank" rel="noopener noreferrer" 
+                   className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg text-center transition-colors">
+                  📘 Follow us on Facebook
+                </a>
+                <a href="https://www.instagram.com/phiga.eg/" target="_blank" rel="noopener noreferrer"
+                   className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white py-2 px-4 rounded-lg text-center transition-colors">
+                  📸 Follow us on Instagram
+                </a>
+              </div>
             </div>
 
             <button 
               onClick={() => setCurrentPage('leaderboard')}
-              className="bg-gradient-to-r from-phiga-accent to-phiga-light text-phiga-dark px-8 py-3 rounded-xl font-semibold hover:scale-105 transition-transform mb-4"
+              className="bg-gradient-to-r from-phiga-accent to-phiga-light text-phiga-dark px-8 py-3 rounded-xl font-semibold hover:scale-105 transition-transform mb-4 w-full"
             >
-              View Final Leaderboard
+              🏆 View Final Leaderboard
             </button>
             
             <button 

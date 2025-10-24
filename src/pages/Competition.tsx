@@ -92,16 +92,20 @@ const Competition: React.FC = () => {
     const now = new Date();
     const cairoTime = new Date(now.toLocaleString("en-US", {timeZone: "Africa/Cairo"}));
     
+    // COMPETITION CLOSED - Force ended
+    const isActive = false;
+    const hasEnded = true;
+    
     // Competition starts TODAY at 7 PM Cairo time
     const competitionStart = new Date(cairoTime);
     competitionStart.setHours(19, 0, 0, 0); // 7 PM TODAY
     
-        // Competition ends at 12:00 AM (midnight) Cairo time (5 hours later)
+    // Competition ends at 12:00 AM (midnight) Cairo time (5 hours later)
     const competitionEnd = new Date(cairoTime);
     competitionEnd.setHours(24, 0, 0, 0); // 12:00 AM (midnight) NEXT DAY
     
-    const isActive = cairoTime >= competitionStart && cairoTime <= competitionEnd;
-    const hasEnded = cairoTime > competitionEnd;
+    // const isActive = cairoTime >= competitionStart && cairoTime <= competitionEnd;
+    // const hasEnded = cairoTime > competitionEnd;
     
     // Calculate time until start
     let timeUntilStart = '';
@@ -342,11 +346,32 @@ const Competition: React.FC = () => {
                 Competition Has Ended
               </h1>
               
-              <div className="bg-red-500/20 border-2 border-red-500/50 rounded-2xl p-6">
-                <h3 className="text-2xl font-bold text-red-700 dark:text-red-300 mb-2">Competition Closed</h3>
-                <p className="text-red-800 dark:text-red-200">
-                  The competition ended at 12:00 AM (midnight) Cairo Time
+              <div className="bg-red-500/20 border-2 border-red-500/50 rounded-2xl p-6 mb-6">
+                <h3 className="text-2xl font-bold text-red-700 dark:text-red-300 mb-2">Season 1 Closed</h3>
+                <p className="text-red-800 dark:text-red-200 mb-4">
+                  Thank you to all participants! The competition has ended.
                 </p>
+              </div>
+
+              <div className="bg-phiga-accent/20 border-2 border-phiga-accent/50 rounded-2xl p-6">
+                <h3 className="text-xl font-bold text-phiga-dark dark:text-phiga-accent mb-3">📢 Next Season Coming Soon!</h3>
+                <p className="text-phiga-dark dark:text-phiga-light mb-4">
+                  Follow us on our social media platforms to be the first to know when the next season launches:
+                </p>
+                <div className="flex flex-col gap-3">
+                  <a href="https://www.facebook.com/profile.php?id=61566168965768" target="_blank" rel="noopener noreferrer" 
+                     className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg text-center transition-colors">
+                    📘 Follow us on Facebook
+                  </a>
+                  <a href="https://www.instagram.com/phiga.eg/" target="_blank" rel="noopener noreferrer"
+                     className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white py-2 px-4 rounded-lg text-center transition-colors">
+                    📸 Follow us on Instagram
+                  </a>
+                  <a href="/leaderboard" 
+                     className="bg-phiga-accent hover:bg-phiga-accent/80 text-white py-2 px-4 rounded-lg text-center transition-colors">
+                    🏆 View Final Leaderboard
+                  </a>
+                </div>
               </div>
             </div>
           </div>
