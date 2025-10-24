@@ -22,6 +22,7 @@ const Competition: React.FC = () => {
   const [participant, setParticipant] = useState<Participant | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [currentTime, setCurrentTime] = useState(new Date());
 
   // Authentication form state
   const [email, setEmail] = useState('');
@@ -32,6 +33,13 @@ const Competition: React.FC = () => {
 
   useEffect(() => {
     checkExistingSession();
+    
+    // Update current time every second for countdown
+    const timer = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 1000);
+
+    return () => clearInterval(timer);
   }, []);
 
   const checkExistingSession = async () => {
@@ -60,8 +68,48 @@ const Competition: React.FC = () => {
     }
   };
 
+  // Check if competition is active
+  const getCompetitionStatus = () => {
+    const now = new Date();
+    const cairoTime = new Date(now.toLocaleString("en-US", {timeZone: "Africa/Cairo"}));
+    
+    // Competition starts TODAY at 6 PM Cairo time
+    const competitionStart = new Date(cairoTime);
+    competitionStart.setHours(18, 0, 0, 0); // 6 PM TODAY
+    
+    // Competition ends at 10 PM Cairo time (4 hours later)
+    const competitionEnd = new Date(competitionStart);
+    competitionEnd.setHours(22, 0, 0, 0); // 10 PM TODAY    const isActive = cairoTime >= competitionStart && cairoTime <= competitionEnd;
+    const hasEnded = cairoTime > competitionEnd;
+    
+    // Calculate time until start
+    let timeUntilStart = '';
+    if (cairoTime < competitionStart) {
+      const timeDiff = competitionStart.getTime() - cairoTime.getTime();
+      const hours = Math.floor(timeDiff / (1000 * 60 * 60));
+      const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+      timeUntilStart = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    }
+    
+    return { isActive, hasEnded, timeUntilStart, competitionStart, competitionEnd };
+  };
+
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Check competition status
+    const { isActive, hasEnded } = getCompetitionStatus();
+    
+    if (!isActive) {
+      if (hasEnded) {
+        setError('The competition has ended. Thank you for your interest.');
+      } else {
+        setError('The competition has not started yet. Please come back at 6:00 PM Cairo time tomorrow.');
+      }
+      return;
+    }
+    
     setLoading(true);
     setError('');
 
@@ -144,9 +192,106 @@ const Competition: React.FC = () => {
 
   // Login Form
   if (!isAuthenticated) {
+    const { isActive, hasEnded, timeUntilStart, competitionStart } = getCompetitionStatus();
+    
+    // Show ONLY countdown if competition hasn't started yet
+    if (!isActive && !hasEnded) {
+      return (
+        <div className="min-h-screen bg-gradient-to-br from-phiga-light to-phiga-accent/20 dark:from-phiga-dark dark:to-phiga-main flex items-center justify-center p-4">
+          <div className="max-w-2xl w-full text-center">
+            <div className="bg-white/10 dark:bg-phiga-dark/80 backdrop-blur-lg rounded-3xl p-12 shadow-2xl border border-phiga-accent/20">
+              <div className="w-24 h-24 bg-gradient-to-r from-phiga-main to-phiga-accent rounded-full flex items-center justify-center mx-auto mb-8">
+                <FiUsers className="text-white text-5xl" />
+              </div>
+              
+              <h1 className="text-4xl md:text-6xl font-bold text-phiga-dark dark:text-white mb-4">
+                PHIGA Competition
+              </h1>
+              
+              <p className="text-xl text-phiga-dark/80 dark:text-phiga-light/80 mb-8">
+                Physics International Gamefield Adventure
+              </p>
+              
+              <div className="bg-yellow-500/20 border-2 border-yellow-500/50 rounded-2xl p-8 mb-8">
+                <h3 className="text-2xl font-bold text-yellow-700 dark:text-yellow-300 mb-4">Competition Not Active</h3>
+                <p className="text-yellow-800 dark:text-yellow-200 text-lg mb-4">
+                  Please wait until the scheduled time
+                </p>
+                <div className="bg-phiga-dark/30 dark:bg-white/10 rounded-xl p-6 mb-4">
+                  <p className="text-yellow-800 dark:text-yellow-200 text-sm mb-2">Competition starts in:</p>
+                  <div className="text-5xl md:text-7xl font-mono font-bold text-yellow-900 dark:text-yellow-100 mb-2">
+                    {timeUntilStart}
+                  </div>
+                </div>
+                <p className="text-yellow-700 dark:text-yellow-300 text-lg mb-1">
+                  Today at 6:00 PM Cairo Time
+                </p>
+                <p className="text-yellow-600 dark:text-yellow-400 text-sm">
+                  {competitionStart.toLocaleDateString('en-US', { 
+                    weekday: 'long', 
+                    month: 'long', 
+                    day: 'numeric',
+                    year: 'numeric'
+                  })}
+                </p>
+              </div>
+              
+              <div className="grid grid-cols-3 gap-4">
+                <div className="bg-white/10 dark:bg-phiga-dark/50 rounded-xl p-4">
+                  <p className="text-phiga-dark dark:text-white font-bold text-xl">4 Hours</p>
+                  <p className="text-phiga-dark/70 dark:text-phiga-light/70 text-sm">Duration</p>
+                </div>
+                <div className="bg-white/10 dark:bg-phiga-dark/50 rounded-xl p-4">
+                  <p className="text-phiga-dark dark:text-white font-bold text-xl">24 Problems</p>
+                  <p className="text-phiga-dark/70 dark:text-phiga-light/70 text-sm">Challenges</p>
+                </div>
+                <div className="bg-white/10 dark:bg-phiga-dark/50 rounded-xl p-4">
+                  <p className="text-phiga-dark dark:text-white font-bold text-xl">6-10 PM</p>
+                  <p className="text-phiga-dark/70 dark:text-phiga-light/70 text-sm">Time</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
+    
+    // Show ended message if competition has ended
+    if (hasEnded) {
+      return (
+        <div className="min-h-screen bg-gradient-to-br from-phiga-light to-phiga-accent/20 dark:from-phiga-dark dark:to-phiga-main flex items-center justify-center p-4">
+          <div className="max-w-2xl w-full text-center">
+            <div className="bg-white/10 dark:bg-phiga-dark/80 backdrop-blur-lg rounded-3xl p-12 shadow-2xl border border-phiga-accent/20">
+              <div className="w-24 h-24 bg-gradient-to-r from-red-500 to-red-700 rounded-full flex items-center justify-center mx-auto mb-8">
+                <FiUsers className="text-white text-5xl" />
+              </div>
+              
+              <h1 className="text-4xl md:text-6xl font-bold text-phiga-dark dark:text-white mb-4">
+                Competition Has Ended
+              </h1>
+              
+              <div className="bg-red-500/20 border-2 border-red-500/50 rounded-2xl p-6">
+                <h3 className="text-2xl font-bold text-red-700 dark:text-red-300 mb-2">Competition Closed</h3>
+                <p className="text-red-800 dark:text-red-200">
+                  The competition ended at 10:00 PM Cairo Time
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
+    
+    // Show login form ONLY when competition is active
     return (
       <div className="min-h-screen bg-gradient-to-br from-phiga-light to-phiga-accent/20 dark:from-phiga-dark dark:to-phiga-main flex items-center justify-center p-4">
         <div className="max-w-md w-full">
+          {/* Active Competition Banner */}
+          <div className="bg-green-500/20 border-2 border-green-500/50 rounded-2xl p-4 mb-6 text-center">
+            <h3 className="text-lg font-bold text-green-700 dark:text-green-300">Competition is LIVE</h3>
+            <p className="text-green-800 dark:text-green-200 text-sm">Enter your credentials below to start</p>
+          </div>
+          
           <div className="bg-white/10 dark:bg-phiga-dark/80 backdrop-blur-lg rounded-2xl p-8 shadow-2xl border border-phiga-accent/20">
             <div className="text-center mb-8">
               <div className="w-16 h-16 bg-gradient-to-r from-phiga-main to-phiga-accent rounded-full flex items-center justify-center mx-auto mb-4">

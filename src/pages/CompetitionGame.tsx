@@ -712,10 +712,15 @@ export default function CompetitionGame({ participant, onScoreUpdate, onParticip
               <div className="text-center">
                 <div className="text-lg font-bold text-phiga-accent">
                   {(() => {
-                    const now = currentTime;
-                    const startTime = new Date();
-                    startTime.setHours(18, 0, 0, 0); // 6 PM Cairo time
-                    const endTime = new Date(startTime.getTime() + 4 * 60 * 60 * 1000); // 4 hours later
+                    const now = new Date(currentTime.toLocaleString("en-US", {timeZone: "Africa/Cairo"}));
+                    
+                    // Competition starts TODAY at 6 PM Cairo time
+                    const startTime = new Date(now);
+                    startTime.setHours(18, 0, 0, 0); // 6 PM TODAY Cairo time
+                    
+                    // Competition ends at 10 PM Cairo time (4 hours later)
+                    const endTime = new Date(startTime);
+                    endTime.setHours(22, 0, 0, 0); // 10 PM TODAY Cairo time
                     
                     if (now < startTime) {
                       const timeToStart = startTime.getTime() - now.getTime();

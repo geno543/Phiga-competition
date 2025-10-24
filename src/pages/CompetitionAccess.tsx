@@ -8,7 +8,8 @@ interface CompetitionAccessProps {
 }
 
 const CompetitionAccess: React.FC<CompetitionAccessProps> = ({ setCurrentPage }) => {
-  const [code, setCode] = useState('');
+  const [email, setEmail] = useState('');
+  const [birthDate, setBirthDate] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const [participant, setParticipant] = useState<any>(null);
@@ -23,23 +24,19 @@ const CompetitionAccess: React.FC<CompetitionAccessProps> = ({ setCurrentPage })
     return () => clearInterval(timer);
   }, []);
 
-  // Competition timing - 6 PM Cairo time today for 4 hours
+  // Competition timing - 6 PM Cairo time TOMORROW for 4 hours
   const getCompetitionTiming = () => {
     const now = new Date();
     const cairoTime = new Date(now.toLocaleString("en-US", {timeZone: "Africa/Cairo"}));
     
-    // Set competition start time to 6 PM Cairo time today
+    // Set competition start time to 6 PM Cairo time TOMORROW
     const competitionStart = new Date(cairoTime);
+    competitionStart.setDate(competitionStart.getDate() + 1); // Always tomorrow
     competitionStart.setHours(18, 0, 0, 0); // 6 PM
     
-    // If it's already past 6 PM today, set it for tomorrow (this shouldn't happen for today's competition)
-    if (cairoTime > competitionStart) {
-      competitionStart.setDate(competitionStart.getDate() + 1);
-    }
-    
-    // Competition ends 4 hours after start
+    // Competition ends 4 hours after start (10 PM)
     const competitionEnd = new Date(competitionStart);
-    competitionEnd.setHours(competitionEnd.getHours() + 4);
+    competitionEnd.setHours(22, 0, 0, 0); // 10 PM
     
     return { competitionStart, competitionEnd, cairoTime };
   };
@@ -60,25 +57,26 @@ const CompetitionAccess: React.FC<CompetitionAccessProps> = ({ setCurrentPage })
     return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
   };
 
-  const handleCodeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const formattedCode = formatCodeInput(e.target.value);
-    setCode(formattedCode);
-    setError('');
-  };
-
-  const validateCode = async () => {
-    // Check if competition is active
+  const validateAccess = async () => {
+    // Block access if competition hasn't started
     if (!isCompetitionActive) {
       if (hasCompetitionEnded) {
         setError('The competition has ended. Thank you for your interest!');
       } else {
-        setError('The competition has not started yet. Please wait until 6:00 PM Cairo time.');
+        setError('The competition has not started yet. Please come back at 6:00 PM Cairo time tomorrow.');
       }
       return;
     }
 
-    if (!validateCodeFormat(code)) {
-      setError('Please enter a valid 8-character code');
+    if (!email.trim() || !birthDate) {
+      setError('Please enter both your email and birth date');
+      return;
+    }
+
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setError('Please enter a valid email address');
       return;
     }
 
@@ -89,20 +87,21 @@ const CompetitionAccess: React.FC<CompetitionAccessProps> = ({ setCurrentPage })
       const { data, error: dbError } = await supabase
         .from('registrations')
         .select('*')
-        .eq('competition_code', code)
+        .eq('email', email.trim().toLowerCase())
+        .eq('birth_date', birthDate)
         .eq('registration_status', 'approved')
         .single();
 
       if (dbError || !data) {
-        setError('Invalid or expired competition code. Please check your code and try again.');
+        setError('Invalid email or birth date. Please check your information and try again.');
         return;
       }
 
-      // Code is valid and competition is active, redirect to competition game
+      // Valid credentials and competition is active, redirect to competition game
       setCurrentPage('competition-game');
       
     } catch (err) {
-      setError('An error occurred while validating your code. Please try again.');
+      setError('An error occurred while validating your information. Please try again.');
     } finally {
       setIsLoading(false);
     }
@@ -110,7 +109,7 @@ const CompetitionAccess: React.FC<CompetitionAccessProps> = ({ setCurrentPage })
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
-      validateCode();
+      validateAccess();
     }
   };
 
@@ -194,7 +193,7 @@ const CompetitionAccess: React.FC<CompetitionAccessProps> = ({ setCurrentPage })
     );
   }
 
-  // If competition hasn't started, show only countdown
+  // Show countdown page before competition starts - BLOCK ALL ACCESS
   if (!isCompetitionActive && !hasCompetitionEnded) {
     const timeUntil = getTimeUntilStart();
     
@@ -227,14 +226,30 @@ const CompetitionAccess: React.FC<CompetitionAccessProps> = ({ setCurrentPage })
               Physics International Gamefield Adventure
             </p>
             
+            {/* Warning Banner */}
+            <div className="bg-yellow-500/20 border-2 border-yellow-500/50 rounded-2xl p-6 mb-8">
+              <h3 className="text-2xl font-bold text-yellow-300 mb-2">⏳ Competition Not Active</h3>
+              <p className="text-yellow-100 text-lg">
+                Please wait until the scheduled time to access the competition
+              </p>
+            </div>
+            
             {/* Countdown Display */}
             <div className="bg-phiga-dark/30 rounded-2xl p-8 mb-8 border border-phiga-accent/30">
               <h2 className="text-2xl font-bold text-yellow-400 mb-4">Competition Starts In</h2>
               <div className="text-5xl md:text-7xl font-mono font-bold text-white mb-2 animate-pulse">
                 {timeUntil}
               </div>
-              <p className="text-phiga-light/60 text-lg">
-                6:00 PM Cairo Time
+              <p className="text-phiga-light/60 text-lg mb-2">
+                Tomorrow at 6:00 PM Cairo Time
+              </p>
+              <p className="text-phiga-light/50 text-sm">
+                {competitionStart.toLocaleDateString('en-US', { 
+                  weekday: 'long', 
+                  year: 'numeric', 
+                  month: 'long', 
+                  day: 'numeric' 
+                })}
               </p>
             </div>
             
@@ -243,12 +258,12 @@ const CompetitionAccess: React.FC<CompetitionAccessProps> = ({ setCurrentPage })
               <div className="bg-white/5 backdrop-blur-sm rounded-xl p-6 text-center">
                 <FiClock className="text-phiga-accent mx-auto mb-3" size={32} />
                 <p className="text-white font-bold text-xl mb-1">4 Hours</p>
-                <p className="text-phiga-light/70 text-sm">Duration</p>
+                <p className="text-phiga-light/70 text-sm">6 PM - 10 PM</p>
               </div>
               <div className="bg-white/5 backdrop-blur-sm rounded-xl p-6 text-center">
                 <FiUsers className="text-phiga-accent mx-auto mb-3" size={32} />
                 <p className="text-white font-bold text-xl mb-1">24 Problems</p>
-                <p className="text-phiga-light/70 text-sm">Challenges</p>
+                <p className="text-phiga-light/70 text-sm">Physics Challenges</p>
               </div>
               <div className="bg-white/5 backdrop-blur-sm rounded-xl p-6 text-center">
                 <FiShield className="text-phiga-accent mx-auto mb-3" size={32} />
@@ -256,6 +271,63 @@ const CompetitionAccess: React.FC<CompetitionAccessProps> = ({ setCurrentPage })
                 <p className="text-phiga-light/70 text-sm">Competition</p>
               </div>
             </div>
+
+            {/* Instruction Box */}
+            <div className="bg-blue-500/20 border border-blue-500/30 rounded-xl p-4">
+              <p className="text-blue-200 text-sm">
+                <strong>📧 Use your registered email</strong> and birth date to access the competition once it starts.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Show competition ended page
+  if (hasCompetitionEnded) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-phiga-dark via-phiga-main to-phiga-accent flex items-center justify-center p-4">
+        {/* Background Effects */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-r from-phiga-accent/30 to-phiga-light/20 rounded-full blur-xl animate-pulse-slow"></div>
+          <div className="absolute bottom-20 right-20 w-48 h-48 bg-gradient-to-r from-phiga-light/20 to-phiga-accent/30 rounded-full blur-2xl animate-bounce-slow"></div>
+        </div>
+
+        <div className="max-w-2xl w-full relative z-10 text-center">
+          <div className="bg-white/10 backdrop-blur-lg rounded-3xl p-12 border border-white/20 shadow-2xl">
+            <div className="w-24 h-24 bg-gradient-to-r from-red-500 to-red-700 rounded-full flex items-center justify-center mx-auto mb-8">
+              <FiClock size={48} className="text-white" />
+            </div>
+            
+            <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">
+              Competition Has Ended
+            </h1>
+            
+            <p className="text-xl text-phiga-light/80 mb-8">
+              Thank you to all participants who competed in PHIGA!
+            </p>
+            
+            <div className="bg-red-500/20 border-2 border-red-500/50 rounded-2xl p-6 mb-8">
+              <h3 className="text-2xl font-bold text-red-300 mb-2">🏁 Competition Closed</h3>
+              <p className="text-red-100 text-lg">
+                The competition ended at 10:00 PM Cairo Time
+              </p>
+            </div>
+
+            <button 
+              onClick={() => setCurrentPage('leaderboard')}
+              className="bg-gradient-to-r from-phiga-accent to-phiga-light text-phiga-dark px-8 py-3 rounded-xl font-semibold hover:scale-105 transition-transform mb-4"
+            >
+              View Final Leaderboard
+            </button>
+            
+            <button 
+              onClick={() => setCurrentPage('home')}
+              className="block w-full bg-white/10 text-white px-8 py-3 rounded-xl font-semibold hover:bg-white/20 transition-colors"
+            >
+              Return to Home
+            </button>
           </div>
         </div>
       </div>
@@ -271,10 +343,10 @@ const CompetitionAccess: React.FC<CompetitionAccessProps> = ({ setCurrentPage })
       </div>
 
       <div className="max-w-md w-full relative z-10">
-        {/* Competition Status Banner */}
-        <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-4 mb-6 border border-white/20 text-center">
-          <h3 className={`text-lg font-bold ${statusInfo.color} mb-2`}>{statusInfo.title}</h3>
-          <p className="text-white text-sm">{statusInfo.message}</p>
+        {/* Competition Status Banner - ACTIVE */}
+        <div className="bg-green-500/20 backdrop-blur-lg rounded-2xl p-4 mb-6 border-2 border-green-500/50 text-center animate-pulse">
+          <h3 className="text-lg font-bold text-green-300 mb-2">🎯 Competition is LIVE!</h3>
+          <p className="text-white text-sm">Enter your code below to start competing</p>
         </div>
 
         {/* Access Form */}
@@ -286,23 +358,37 @@ const CompetitionAccess: React.FC<CompetitionAccessProps> = ({ setCurrentPage })
             </div>
             <h1 className="text-3xl font-bold text-white mb-2">Competition Access</h1>
             <p className="text-phiga-light/80">
-              Enter your 8-character competition code to access PHIGA
+              Enter your registered email and birth date to access PHIGA
             </p>
           </div>
 
-          {/* Code Input */}
-          <div className="mb-6">
+          {/* Email Input */}
+          <div className="mb-4">
             <label className="block text-phiga-light font-medium mb-2">
-              Competition Code
+              Email Address
             </label>
             <input
-              type="text"
-              value={code}
-              onChange={handleCodeChange}
+              type="email"
+              value={email}
+              onChange={(e) => { setEmail(e.target.value); setError(''); }}
               onKeyPress={handleKeyPress}
-              placeholder="ABCD1234"
-              maxLength={8}
-              className="w-full px-4 py-4 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-phiga-accent focus:border-transparent text-center text-2xl font-mono tracking-widest"
+              placeholder="your.email@example.com"
+              className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-phiga-accent focus:border-transparent"
+              disabled={isLoading || !isCompetitionActive}
+            />
+          </div>
+
+          {/* Birth Date Input */}
+          <div className="mb-6">
+            <label className="block text-phiga-light font-medium mb-2">
+              Birth Date
+            </label>
+            <input
+              type="date"
+              value={birthDate}
+              onChange={(e) => { setBirthDate(e.target.value); setError(''); }}
+              onKeyPress={handleKeyPress}
+              className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-phiga-accent focus:border-transparent [color-scheme:dark]"
               disabled={isLoading || !isCompetitionActive}
             />
             {error && (
@@ -312,8 +398,8 @@ const CompetitionAccess: React.FC<CompetitionAccessProps> = ({ setCurrentPage })
 
           {/* Access Button */}
           <button
-            onClick={validateCode}
-            disabled={isLoading || code.length !== 8 || !isCompetitionActive}
+            onClick={validateAccess}
+            disabled={isLoading || !email || !birthDate || !isCompetitionActive}
             className="w-full bg-gradient-to-r from-phiga-accent to-phiga-light text-phiga-dark py-4 rounded-xl font-bold text-lg transition-all duration-300 hover:scale-105 hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center justify-center gap-3"
           >
             {isLoading ? (
