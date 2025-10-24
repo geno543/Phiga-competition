@@ -53,7 +53,7 @@ export default function LiveLeaderboard({ refreshInterval = 5000 }: LiveLeaderbo
 
   const fetchLeaderboard = async () => {
     try {
-      // Fetch leaderboard data with ranking
+      // Fetch top 50 leaderboard data with ranking
       const { data, error } = await supabase
         .from('competition_participants')
         .select('id, display_name, total_score, current_question, questions_skipped, last_activity, is_active')
@@ -61,7 +61,8 @@ export default function LiveLeaderboard({ refreshInterval = 5000 }: LiveLeaderbo
         .not('display_name', 'is', null)
         .order('total_score', { ascending: false })
         .order('current_question', { ascending: false })
-        .order('last_activity', { ascending: false });
+        .order('last_activity', { ascending: false })
+        .limit(50);
 
       if (error) throw error;
 
@@ -139,7 +140,7 @@ export default function LiveLeaderboard({ refreshInterval = 5000 }: LiveLeaderbo
           <div className="flex justify-between items-center">
             <div>
               <h1 className="text-3xl font-bold text-phiga-accent mb-2">Live Leaderboard</h1>
-              <p className="text-phiga-light/70">PHIGA Physics Competition</p>
+              <p className="text-phiga-light/70">PHIGA Physics Competition - Top 50</p>
             </div>
           </div>
           
@@ -148,6 +149,9 @@ export default function LiveLeaderboard({ refreshInterval = 5000 }: LiveLeaderbo
             <span>Last updated: {lastUpdated.toLocaleTimeString()}</span>
             <span className="ml-4 px-2 py-1 bg-green-500/20 text-green-300 rounded-full text-xs">
               Live Updates
+            </span>
+            <span className="ml-2 px-2 py-1 bg-phiga-accent/20 text-phiga-accent rounded-full text-xs">
+              Showing Top 50
             </span>
           </div>
         </div>
