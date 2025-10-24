@@ -909,7 +909,7 @@ export default function CompetitionGame({ participant, onScoreUpdate, onParticip
               <div className="text-right">
                 <div className="text-2xl font-bold text-phiga-accent">{participant.total_score} pts</div>
                 <div className="text-sm text-phiga-light/70">
-                  Question {participant.current_question}/22 | Skips: {participant.questions_skipped}
+                  Question {Math.min(participant.current_question, 22)}/22 | Skips: {participant.questions_skipped}
                 </div>
               </div>
             </div>
