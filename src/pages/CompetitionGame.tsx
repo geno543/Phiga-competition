@@ -609,7 +609,7 @@ export default function CompetitionGame({ participant, onScoreUpdate, onParticip
 
       console.log('Skip penalty:', penaltyPoints, 'Skip count:', participant.questions_skipped);
 
-      // Save skip record
+      // Save skip record - handle duplicates gracefully
       const { error: answerError } = await supabase
         .from('competition_answers')
         .insert({
@@ -623,12 +623,24 @@ export default function CompetitionGame({ participant, onScoreUpdate, onParticip
 
       if (answerError) {
         console.error('Error saving skip record:', answerError);
-        throw answerError;
+        // If duplicate key error, just log and continue
+        if (answerError.code === '23505' || answerError.message?.includes('duplicate')) {
+          console.log('Skip record already exists, continuing anyway');
+        } else {
+          console.error('Non-duplicate error in skip, but continuing:', answerError);
+        }
       }
 
       // Update participant
       const newScore = participant.total_score + penaltyPoints;
-      const nextQuestion = participant.current_question + 1;
+      
+      // Calculate next question: if current question skipped is >= participant.current_question,
+      // move to the next question. Otherwise, keep current_question as is
+      let nextQuestion = participant.current_question;
+      if (currentQuestion.question_number >= participant.current_question) {
+        nextQuestion = currentQuestion.question_number + 1;
+      }
+      
       const newSkipCount = participant.questions_skipped + 1;
 
       console.log('Updating participant:', { newScore, nextQuestion, newSkipCount });
@@ -644,8 +656,8 @@ export default function CompetitionGame({ participant, onScoreUpdate, onParticip
         .eq('id', participant.id);
 
       if (updateError) {
-        console.error('Error updating participant:', updateError);
-        throw updateError;
+        console.error('Error updating participant on skip:', updateError);
+        // Don't throw - continue anyway
       }
 
       console.log('Skip successful, moving to question', nextQuestion);
