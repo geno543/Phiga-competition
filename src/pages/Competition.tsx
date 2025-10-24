@@ -354,24 +354,10 @@ const Competition: React.FC = () => {
               </div>
 
               <div className="bg-phiga-accent/20 border-2 border-phiga-accent/50 rounded-2xl p-6">
-                <h3 className="text-xl font-bold text-phiga-dark dark:text-phiga-accent mb-3">📢 Next Season Coming Soon!</h3>
-                <p className="text-phiga-dark dark:text-phiga-light mb-4">
-                  Follow us on our social media platforms to be the first to know when the next season launches:
-                </p>
-                <div className="flex flex-col gap-3">
-                  <a href="https://www.facebook.com/profile.php?id=61566168965768" target="_blank" rel="noopener noreferrer" 
-                     className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg text-center transition-colors">
-                    📘 Follow us on Facebook
-                  </a>
-                  <a href="https://www.instagram.com/phiga.eg/" target="_blank" rel="noopener noreferrer"
-                     className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white py-2 px-4 rounded-lg text-center transition-colors">
-                    📸 Follow us on Instagram
-                  </a>
-                  <a href="/leaderboard" 
-                     className="bg-phiga-accent hover:bg-phiga-accent/80 text-white py-2 px-4 rounded-lg text-center transition-colors">
-                    🏆 View Final Leaderboard
-                  </a>
-                </div>
+                <a href="/leaderboard" 
+                   className="block bg-phiga-accent hover:bg-phiga-accent/80 text-white py-3 px-6 rounded-lg text-center transition-colors font-semibold text-lg">
+                  🏆 View Final Leaderboard
+                </a>
               </div>
             </div>
           </div>

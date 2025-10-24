@@ -319,23 +319,6 @@ const CompetitionAccess: React.FC<CompetitionAccessProps> = ({ setCurrentPage })
               </p>
             </div>
 
-            <div className="bg-phiga-accent/20 border-2 border-phiga-accent/50 rounded-2xl p-6 mb-6">
-              <h3 className="text-xl font-bold text-phiga-accent mb-3">📢 Next Season Coming Soon!</h3>
-              <p className="text-white mb-4">
-                Follow us on social media to be the first to know when the next season launches:
-              </p>
-              <div className="flex flex-col gap-3">
-                <a href="https://www.facebook.com/profile.php?id=61566168965768" target="_blank" rel="noopener noreferrer" 
-                   className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg text-center transition-colors">
-                  📘 Follow us on Facebook
-                </a>
-                <a href="https://www.instagram.com/phiga.eg/" target="_blank" rel="noopener noreferrer"
-                   className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white py-2 px-4 rounded-lg text-center transition-colors">
-                  📸 Follow us on Instagram
-                </a>
-              </div>
-            </div>
-
             <button 
               onClick={() => setCurrentPage('leaderboard')}
               className="bg-gradient-to-r from-phiga-accent to-phiga-light text-phiga-dark px-8 py-3 rounded-xl font-semibold hover:scale-105 transition-transform mb-4 w-full"
