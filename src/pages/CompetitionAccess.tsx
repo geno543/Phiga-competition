@@ -24,19 +24,18 @@ const CompetitionAccess: React.FC<CompetitionAccessProps> = ({ setCurrentPage })
     return () => clearInterval(timer);
   }, []);
 
-  // Competition timing - 6 PM Cairo time TOMORROW for 4 hours
+  // Competition timing - 7 PM Cairo time TODAY for 4 hours 20 minutes
   const getCompetitionTiming = () => {
     const now = new Date();
     const cairoTime = new Date(now.toLocaleString("en-US", {timeZone: "Africa/Cairo"}));
     
-    // Set competition start time to 6 PM Cairo time TOMORROW
+    // Set competition start time to 7 PM Cairo time TODAY
     const competitionStart = new Date(cairoTime);
-    competitionStart.setDate(competitionStart.getDate() + 1); // Always tomorrow
-    competitionStart.setHours(18, 0, 0, 0); // 6 PM
+    competitionStart.setHours(19, 0, 0, 0); // 7 PM TODAY
     
-    // Competition ends 4 hours after start (10 PM)
+    // Competition ends at 11:20 PM (4 hours 20 minutes after start)
     const competitionEnd = new Date(competitionStart);
-    competitionEnd.setHours(22, 0, 0, 0); // 10 PM
+    competitionEnd.setHours(23, 20, 0, 0); // 11:20 PM
     
     return { competitionStart, competitionEnd, cairoTime };
   };
@@ -311,7 +310,7 @@ const CompetitionAccess: React.FC<CompetitionAccessProps> = ({ setCurrentPage })
             <div className="bg-red-500/20 border-2 border-red-500/50 rounded-2xl p-6 mb-8">
               <h3 className="text-2xl font-bold text-red-300 mb-2">🏁 Competition Closed</h3>
               <p className="text-red-100 text-lg">
-                The competition ended at 10:00 PM Cairo Time
+                The competition ended at 11:20 PM Cairo Time
               </p>
             </div>
 
