@@ -51,6 +51,35 @@ export default function CompetitionGame({ participant, onScoreUpdate, onParticip
   const [showLeaderboard, setShowLeaderboard] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date());
 
+  // Refresh participant data from database on mount (handles page reloads)
+  useEffect(() => {
+    const refreshParticipantData = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('competition_participants')
+          .select('*')
+          .eq('id', participant.id)
+          .single();
+
+        if (data && !error) {
+          console.log('Refreshed participant data:', data);
+          onParticipantUpdate({
+            id: data.id,
+            email: data.email,
+            display_name: data.display_name || '',
+            total_score: data.total_score,
+            current_question: data.current_question,
+            questions_skipped: data.questions_skipped
+          });
+        }
+      } catch (error) {
+        console.error('Error refreshing participant data:', error);
+      }
+    };
+
+    refreshParticipantData();
+  }, []); // Run once on mount
+
   // Initialize video streaming with HLS.js
   useEffect(() => {
     const video = videoRef.current;
@@ -303,8 +332,17 @@ export default function CompetitionGame({ participant, onScoreUpdate, onParticip
     }
 
     console.log('Submitting answer:', numericAnswer, 'for question', currentQuestion.question_number);
+    console.log('Participant state:', { id: participant.id, current_question: participant.current_question, total_score: participant.total_score });
+
+    // Show processing feedback
+    setFeedback({ type: 'info', message: 'Submitting your answer...' });
 
     try {
+      // Verify participant is authenticated
+      if (!participant.id) {
+        throw new Error('Not authenticated. Please refresh and login again.');
+      }
+
       // Check if answer is correct (within tolerance)
       const tolerance = (currentQuestion.tolerance_percentage / 100) * currentQuestion.correct_answer;
       const isCorrect = Math.abs(numericAnswer - currentQuestion.correct_answer) <= tolerance;
@@ -331,12 +369,19 @@ export default function CompetitionGame({ participant, onScoreUpdate, onParticip
           is_skipped: false
         });
 
-      if (answerError) throw answerError;
+      if (answerError) {
+        console.error('Answer save error:', answerError);
+        throw answerError;
+      }
+
+      console.log('Answer saved successfully');
 
       if (isCorrect) {
         // Update participant score and move to next question
         const newScore = participant.total_score + points;
         const nextQuestion = participant.current_question + 1;
+
+        console.log('Updating participant with new score:', newScore, 'next question:', nextQuestion);
 
         const { error: updateError } = await supabase
           .from('competition_participants')
@@ -522,8 +567,17 @@ export default function CompetitionGame({ participant, onScoreUpdate, onParticip
     if (!currentQuestion) return;
 
     console.log('Skipping question:', currentQuestion.question_number);
+    console.log('Participant state:', { id: participant.id, current_question: participant.current_question, questions_skipped: participant.questions_skipped });
+
+    // Show processing feedback
+    setFeedback({ type: 'info', message: 'Skipping question...' });
 
     try {
+      // Verify participant is authenticated
+      if (!participant.id) {
+        throw new Error('Not authenticated. Please refresh and login again.');
+      }
+
       // Apply skip penalty if over limit
       let penaltyPoints = 0;
       if (participant.questions_skipped >= 3) {

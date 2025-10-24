@@ -96,9 +96,9 @@ const Competition: React.FC = () => {
     const competitionStart = new Date(cairoTime);
     competitionStart.setHours(19, 0, 0, 0); // 7 PM TODAY
     
-    // Competition ends at 11:20 PM Cairo time (4 hours 20 minutes later)
+    // Competition ends at 11:30 PM Cairo time (4 hours 30 minutes later)
     const competitionEnd = new Date(competitionStart);
-    competitionEnd.setHours(23, 20, 0, 0); // 11:20 PM TODAY
+    competitionEnd.setHours(23, 30, 0, 0); // 11:30 PM TODAY
     
     const isActive = cairoTime >= competitionStart && cairoTime <= competitionEnd;
     const hasEnded = cairoTime > competitionEnd;
@@ -310,7 +310,7 @@ const Competition: React.FC = () => {
               
               <div className="grid grid-cols-3 gap-4">
                 <div className="bg-white/10 dark:bg-phiga-dark/50 rounded-xl p-4">
-                  <p className="text-phiga-dark dark:text-white font-bold text-xl">4h 20m</p>
+                  <p className="text-phiga-dark dark:text-white font-bold text-xl">4h 30m</p>
                   <p className="text-phiga-dark/70 dark:text-phiga-light/70 text-sm">Duration</p>
                 </div>
                 <div className="bg-white/10 dark:bg-phiga-dark/50 rounded-xl p-4">
@@ -318,7 +318,7 @@ const Competition: React.FC = () => {
                   <p className="text-phiga-dark/70 dark:text-phiga-light/70 text-sm">Challenges</p>
                 </div>
                 <div className="bg-white/10 dark:bg-phiga-dark/50 rounded-xl p-4">
-                  <p className="text-phiga-dark dark:text-white font-bold text-xl">7-11:20 PM</p>
+                  <p className="text-phiga-dark dark:text-white font-bold text-xl">7-11:30 PM</p>
                   <p className="text-phiga-dark/70 dark:text-phiga-light/70 text-sm">Time</p>
                 </div>
               </div>
@@ -345,7 +345,7 @@ const Competition: React.FC = () => {
               <div className="bg-red-500/20 border-2 border-red-500/50 rounded-2xl p-6">
                 <h3 className="text-2xl font-bold text-red-700 dark:text-red-300 mb-2">Competition Closed</h3>
                 <p className="text-red-800 dark:text-red-200">
-                  The competition ended at 11:20 PM Cairo Time
+                  The competition ended at 11:30 PM Cairo Time
                 </p>
               </div>
             </div>
