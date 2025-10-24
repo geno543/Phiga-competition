@@ -33,9 +33,9 @@ const CompetitionAccess: React.FC<CompetitionAccessProps> = ({ setCurrentPage })
     const competitionStart = new Date(cairoTime);
     competitionStart.setHours(19, 0, 0, 0); // 7 PM TODAY
     
-    // Competition ends at 11:30 PM (4 hours 30 minutes after start)
+    // Competition ends at 12:00 AM (midnight) (5 hours after start)
     const competitionEnd = new Date(competitionStart);
-    competitionEnd.setHours(23, 30, 0, 0); // 11:30 PM
+    competitionEnd.setHours(24, 0, 0, 0); // 12:00 AM (midnight)
     
     return { competitionStart, competitionEnd, cairoTime };
   };
@@ -310,7 +310,7 @@ const CompetitionAccess: React.FC<CompetitionAccessProps> = ({ setCurrentPage })
             <div className="bg-red-500/20 border-2 border-red-500/50 rounded-2xl p-6 mb-8">
               <h3 className="text-2xl font-bold text-red-300 mb-2">🏁 Competition Closed</h3>
               <p className="text-red-100 text-lg">
-                The competition ended at 11:30 PM Cairo Time
+                The competition ended at 12:00 AM (midnight) Cairo Time
               </p>
             </div>
 
