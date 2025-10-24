@@ -16,8 +16,8 @@ async function deleteParticipant() {
       // Find the participant
       const { data: participant, error: findError } = await supabase
         .from('competition_participants')
-        .eq('display_name', displayName)
         .select('*')
+        .eq('display_name', displayName)
         .maybeSingle();
       
       if (findError || !participant) {
