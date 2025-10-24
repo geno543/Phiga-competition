@@ -202,7 +202,7 @@ export default function LiveLeaderboard({ refreshInterval = 5000 }: LiveLeaderbo
                       </td>
                       <td className="px-6 py-4 text-center">
                         <div className="text-lg font-semibold text-phiga-light">
-                          {entry.current_question}/24
+                          {entry.current_question}/23
                         </div>
                         <div className="text-xs text-phiga-light/60">completed</div>
                       </td>
