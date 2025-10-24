@@ -179,17 +179,16 @@ export default function CompetitionGame({ participant, onScoreUpdate, onParticip
     const handleTimeUpdate = () => {
       const currentTime = video.currentTime;
       
-      // Check if we've reached the end of a scene for the current question
+      // Check if we've reached the end of a scene for ANY question
+      // Allow participants to answer questions regardless of their current_question value
       const questionAtTime = questions.find(q => 
         currentTime >= q.scene_end_time - 0.2 && 
-        currentTime <= q.scene_end_time + 0.5 &&
-        q.question_number === participant.current_question
+        currentTime <= q.scene_end_time + 0.5
       );
 
       // Log when we're getting close to question time
-      const currentQuestionData = questions.find(q => q.question_number === participant.current_question);
-      if (currentQuestionData && currentTime > currentQuestionData.scene_end_time - 5) {
-        console.log('Approaching question time:', currentTime.toFixed(2), 'Target:', currentQuestionData.scene_end_time);
+      if (questionAtTime && currentTime > questionAtTime.scene_end_time - 5) {
+        console.log('Approaching question time:', currentTime.toFixed(2), 'Target:', questionAtTime.scene_end_time);
       }
 
       if (questionAtTime) {
@@ -377,9 +376,15 @@ export default function CompetitionGame({ participant, onScoreUpdate, onParticip
       console.log('Answer saved successfully');
 
       if (isCorrect) {
-        // Update participant score and move to next question
+        // Update participant score
         const newScore = participant.total_score + points;
-        const nextQuestion = participant.current_question + 1;
+        
+        // Calculate next question: if current question answered is >= participant.current_question,
+        // move to the next question. Otherwise, keep current_question as is (answering old questions)
+        let nextQuestion = participant.current_question;
+        if (currentQuestion.question_number >= participant.current_question) {
+          nextQuestion = currentQuestion.question_number + 1;
+        }
 
         console.log('Updating participant with new score:', newScore, 'next question:', nextQuestion);
 
@@ -392,7 +397,10 @@ export default function CompetitionGame({ participant, onScoreUpdate, onParticip
           })
           .eq('id', participant.id);
 
-        if (updateError) throw updateError;
+        if (updateError) {
+          console.error('Update error:', updateError);
+          throw updateError;
+        }
 
         // Check if competition is completed
         if (nextQuestion > 23) {
@@ -466,8 +474,11 @@ export default function CompetitionGame({ participant, onScoreUpdate, onParticip
 
       } else {
         if (attemptNumber >= 5) {
-          // Max attempts reached, move to next question
-          const nextQuestion = participant.current_question + 1;
+          // Max attempts reached, move to next question if this is current or ahead
+          let nextQuestion = participant.current_question;
+          if (currentQuestion.question_number >= participant.current_question) {
+            nextQuestion = currentQuestion.question_number + 1;
+          }
 
           const { error: updateError } = await supabase
             .from('competition_participants')
@@ -477,7 +488,10 @@ export default function CompetitionGame({ participant, onScoreUpdate, onParticip
             })
             .eq('id', participant.id);
 
-          if (updateError) throw updateError;
+          if (updateError) {
+            console.error('Update error on max attempts:', updateError);
+            throw updateError;
+          }
 
           // Check if competition is completed
           if (nextQuestion > 23) {
