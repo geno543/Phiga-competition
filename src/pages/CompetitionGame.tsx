@@ -356,7 +356,44 @@ export default function CompetitionGame({ participant, onScoreUpdate, onParticip
 
       console.log('Points earned:', points, 'on attempt', attemptNumber);
 
-      // Try to insert answer - if it fails due to duplicate, that's okay
+      // Check if this participant has already answered this question correctly
+      const { data: existingCorrectAnswer, error: checkError } = await supabase
+        .from('competition_answers')
+        .select('*')
+        .eq('participant_id', participant.id)
+        .eq('question_id', currentQuestion.id)
+        .eq('is_correct', true)
+        .maybeSingle();
+
+      if (checkError && checkError.code !== 'PGRST116') {
+        console.error('Error checking existing answers:', checkError);
+      }
+
+      // If they already answered this question correctly, don't let them answer again
+      if (existingCorrectAnswer) {
+        console.log('Question already answered correctly, showing message and continuing');
+        setFeedback({ 
+          type: 'info', 
+          message: 'You have already answered this question correctly!' 
+        });
+        
+        // Continue video after brief pause
+        setTimeout(() => {
+          setShowQuestion(false);
+          setAnswer('');
+          setAttemptNumber(1);
+          setFeedback(null);
+          
+          const video = videoRef.current;
+          if (video) {
+            video.play();
+            setIsVideoPlaying(true);
+          }
+        }, 2000);
+        return;
+      }
+
+      // Try to insert answer
       const { error: insertError } = await supabase
         .from('competition_answers')
         .insert({
@@ -370,16 +407,21 @@ export default function CompetitionGame({ participant, onScoreUpdate, onParticip
 
       if (insertError) {
         console.error('Answer insert error:', insertError);
-        // If duplicate key error, just log and continue (user already answered)
+        // If duplicate key error, show message and don't award points
         if (insertError.code === '23505' || insertError.message?.includes('duplicate')) {
-          console.log('Answer already exists, continuing anyway');
+          console.log('Duplicate answer detected, not awarding points');
+          setFeedback({ 
+            type: 'error', 
+            message: 'You have already submitted this answer attempt.' 
+          });
+          return;
         } else {
-          // For other errors, still continue but log them
-          console.error('Non-duplicate error, but continuing:', insertError);
+          // For other errors, throw to be caught
+          throw insertError;
         }
-      } else {
-        console.log('Answer saved successfully');
       }
+
+      console.log('Answer saved successfully');
 
       if (isCorrect) {
         // Update participant score - always add points for correct answer
