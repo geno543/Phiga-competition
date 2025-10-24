@@ -793,11 +793,11 @@ export default function CompetitionGame({ participant, onScoreUpdate, onParticip
                     
                     // Competition starts TODAY at 6 PM Cairo time
                     const startTime = new Date(now);
-                    startTime.setHours(18, 0, 0, 0); // 6 PM TODAY Cairo time
+                    startTime.setHours(19, 0, 0, 0); // 7 PM TODAY Cairo time
                     
-                    // Competition ends at 10 PM Cairo time (4 hours later)
+                    // Competition ends at 11:30 PM Cairo time (4 hours 30 minutes later)
                     const endTime = new Date(startTime);
-                    endTime.setHours(22, 0, 0, 0); // 10 PM TODAY Cairo time
+                    endTime.setHours(23, 30, 0, 0); // 11:30 PM TODAY Cairo time
                     
                     if (now < startTime) {
                       const timeToStart = startTime.getTime() - now.getTime();
