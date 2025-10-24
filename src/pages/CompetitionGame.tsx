@@ -63,6 +63,17 @@ export default function CompetitionGame({ participant, onScoreUpdate, onParticip
 
         if (data && !error) {
           console.log('Refreshed participant data:', data);
+          
+          // Check if participant has already completed all questions
+          if (data.current_question > 22) {
+            console.log('Participant has already completed all questions, redirecting to leaderboard');
+            localStorage.removeItem('competition_participant_id');
+            localStorage.removeItem('competition_participant_email');
+            localStorage.removeItem('competition_participant_name');
+            window.location.href = '/leaderboard';
+            return;
+          }
+          
           onParticipantUpdate({
             id: data.id,
             email: data.email,
@@ -454,7 +465,7 @@ export default function CompetitionGame({ participant, onScoreUpdate, onParticip
         if (nextQuestion > 22) {
           setFeedback({ 
             type: 'success', 
-            message: `Correct! +${points} points. Congratulations! You've completed all questions!` 
+            message: `Correct! +${points} points. Congratulations! You've completed all 22 questions!` 
           });
           
           onScoreUpdate(newScore);
@@ -466,14 +477,14 @@ export default function CompetitionGame({ participant, onScoreUpdate, onParticip
           };
           onParticipantUpdate(updatedParticipant);
           
-          // Show completion message and stop video
+          // Show completion message, stop video, and redirect
           setTimeout(() => {
             setShowQuestion(false);
             setAnswer('');
             setAttemptNumber(1);
             setFeedback({ 
               type: 'success', 
-              message: 'Competition completed! Check the leaderboard to see your final ranking.' 
+              message: 'Competition completed! Redirecting to leaderboard...' 
             });
             
             const video = videoRef.current;
@@ -481,6 +492,14 @@ export default function CompetitionGame({ participant, onScoreUpdate, onParticip
               video.pause();
               setIsVideoPlaying(false);
             }
+            
+            // Clear participant session and redirect after showing message
+            setTimeout(() => {
+              localStorage.removeItem('competition_participant_id');
+              localStorage.removeItem('competition_participant_email');
+              localStorage.removeItem('competition_participant_name');
+              window.location.href = '/leaderboard';
+            }, 3000);
           }, 3000);
           
           return;
@@ -554,14 +573,14 @@ export default function CompetitionGame({ participant, onScoreUpdate, onParticip
             };
             onParticipantUpdate(updatedParticipant);
             
-            // Show completion message and stop video
+            // Show completion message, stop video, and redirect
             setTimeout(() => {
               setShowQuestion(false);
               setAnswer('');
               setAttemptNumber(1);
               setFeedback({ 
                 type: 'success', 
-                message: 'Competition completed! Check the leaderboard to see your final ranking.' 
+                message: 'Competition completed! Redirecting to leaderboard...' 
               });
               
               const video = videoRef.current;
@@ -569,6 +588,14 @@ export default function CompetitionGame({ participant, onScoreUpdate, onParticip
                 video.pause();
                 setIsVideoPlaying(false);
               }
+              
+              // Clear participant session and redirect
+              setTimeout(() => {
+                localStorage.removeItem('competition_participant_id');
+                localStorage.removeItem('competition_participant_email');
+                localStorage.removeItem('competition_participant_name');
+                window.location.href = '/leaderboard';
+              }, 3000);
             }, 3000);
             
             return;
@@ -709,7 +736,7 @@ export default function CompetitionGame({ participant, onScoreUpdate, onParticip
         const penaltyMessage = penaltyPoints < 0 ? ` (${penaltyPoints} penalty)` : '';
         setFeedback({ 
           type: 'info', 
-          message: `Question skipped${penaltyMessage}. Congratulations! You've completed all questions!` 
+          message: `Question skipped${penaltyMessage}. Congratulations! You've completed all 22 questions!` 
         });
         
         onScoreUpdate(newScore);
@@ -722,14 +749,14 @@ export default function CompetitionGame({ participant, onScoreUpdate, onParticip
         };
         onParticipantUpdate(updatedParticipant);
         
-        // Show completion message and stop video
+        // Show completion message, stop video, and redirect
         setTimeout(() => {
           setShowQuestion(false);
           setAnswer('');
           setAttemptNumber(1);
           setFeedback({ 
             type: 'success', 
-            message: 'Competition completed! Check the leaderboard to see your final ranking.' 
+            message: 'Competition completed! Redirecting to leaderboard...' 
           });
           
           const video = videoRef.current;
@@ -737,6 +764,14 @@ export default function CompetitionGame({ participant, onScoreUpdate, onParticip
             video.pause();
             setIsVideoPlaying(false);
           }
+          
+          // Clear participant session and redirect
+          setTimeout(() => {
+            localStorage.removeItem('competition_participant_id');
+            localStorage.removeItem('competition_participant_email');
+            localStorage.removeItem('competition_participant_name');
+            window.location.href = '/leaderboard';
+          }, 3000);
         }, 3000);
         
         return;
