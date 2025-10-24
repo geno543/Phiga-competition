@@ -33,7 +33,19 @@ const Competition: React.FC = () => {
   const [displayName, setDisplayName] = useState('');
 
   useEffect(() => {
-    checkExistingSession();
+    // Force logout all users - increment this version to clear all sessions
+    const APP_VERSION = 'v2.0';
+    const currentVersion = localStorage.getItem('app_version');
+    
+    if (currentVersion !== APP_VERSION) {
+      // Clear all login data
+      localStorage.removeItem('competition_participant_id');
+      localStorage.setItem('app_version', APP_VERSION);
+      setIsAuthenticated(false);
+      setParticipant(null);
+    } else {
+      checkExistingSession();
+    }
     
     // Check if user has seen the guide video
     const hasSeenGuide = localStorage.getItem('competition_guide_seen');
