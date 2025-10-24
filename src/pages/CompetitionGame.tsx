@@ -356,61 +356,68 @@ export default function CompetitionGame({ participant, onScoreUpdate, onParticip
 
       console.log('Points earned:', points, 'on attempt', attemptNumber);
 
-      // Check if this participant has already answered this question
-      const { data: existingAnswers, error: checkError } = await supabase
+      // Try to save answer to database using upsert to handle duplicates
+      // First, check if answer already exists
+      const { data: existingAnswer, error: checkError } = await supabase
         .from('competition_answers')
         .select('*')
         .eq('participant_id', participant.id)
         .eq('question_id', currentQuestion.id)
-        .eq('attempt_number', attemptNumber);
+        .eq('attempt_number', attemptNumber)
+        .maybeSingle();
 
-      if (checkError) {
+      if (checkError && checkError.code !== 'PGRST116') {
         console.error('Error checking existing answers:', checkError);
         throw checkError;
       }
 
-      // If answer already exists for this attempt, don't insert again
-      if (existingAnswers && existingAnswers.length > 0) {
-        console.log('Answer already exists for this attempt, skipping insert');
-        setFeedback({ 
-          type: 'info', 
-          message: 'You have already submitted this answer. Moving on...' 
-        });
-        
-        // Just continue the video
-        setTimeout(() => {
-          setShowQuestion(false);
-          setAnswer('');
-          setAttemptNumber(1);
-          setFeedback(null);
-          
-          const video = videoRef.current;
-          if (video) {
-            video.play();
-            setIsVideoPlaying(true);
+      let answerSaved = false;
+
+      if (existingAnswer) {
+        console.log('Answer already exists for this attempt, updating it');
+        // Update existing answer
+        const { error: updateError } = await supabase
+          .from('competition_answers')
+          .update({
+            points_earned: points,
+            is_correct: isCorrect,
+            updated_at: new Date().toISOString()
+          })
+          .eq('id', existingAnswer.id);
+
+        if (updateError) {
+          console.error('Answer update error:', updateError);
+          throw updateError;
+        }
+        answerSaved = true;
+      } else {
+        // Insert new answer
+        const { error: insertError } = await supabase
+          .from('competition_answers')
+          .insert({
+            participant_id: participant.id,
+            question_id: currentQuestion.id,
+            attempt_number: attemptNumber,
+            points_earned: points,
+            is_correct: isCorrect,
+            is_skipped: false
+          });
+
+        if (insertError) {
+          console.error('Answer insert error:', insertError);
+          // If insert fails due to duplicate, try to continue anyway
+          if (insertError.code === '23505') {
+            console.log('Duplicate key error, treating as already answered');
+            answerSaved = true;
+          } else {
+            throw insertError;
           }
-        }, 2000);
-        return;
+        } else {
+          answerSaved = true;
+        }
       }
 
-      // Save answer to database
-      const { error: answerError } = await supabase
-        .from('competition_answers')
-        .insert({
-          participant_id: participant.id,
-          question_id: currentQuestion.id,
-          attempt_number: attemptNumber,
-          points_earned: points,
-          is_correct: isCorrect,
-          is_skipped: false
-        });
-
-      if (answerError) {
-        console.error('Answer save error:', answerError);
-        throw answerError;
-      }
-
-      console.log('Answer saved successfully');
+      console.log('Answer saved/updated successfully');
 
       if (isCorrect) {
         // Check if participant already has points for this question (prevents duplicate scoring)
