@@ -79,7 +79,9 @@ const Competition: React.FC = () => {
     
     // Competition ends at 10 PM Cairo time (4 hours later)
     const competitionEnd = new Date(competitionStart);
-    competitionEnd.setHours(22, 0, 0, 0); // 10 PM TODAY    const isActive = cairoTime >= competitionStart && cairoTime <= competitionEnd;
+    competitionEnd.setHours(22, 0, 0, 0); // 10 PM TODAY
+    
+    const isActive = cairoTime >= competitionStart && cairoTime <= competitionEnd;
     const hasEnded = cairoTime > competitionEnd;
     
     // Calculate time until start
