@@ -356,94 +356,34 @@ export default function CompetitionGame({ participant, onScoreUpdate, onParticip
 
       console.log('Points earned:', points, 'on attempt', attemptNumber);
 
-      // Try to save answer to database using upsert to handle duplicates
-      // First, check if answer already exists
-      const { data: existingAnswer, error: checkError } = await supabase
+      // Try to insert answer - if it fails due to duplicate, that's okay
+      const { error: insertError } = await supabase
         .from('competition_answers')
-        .select('*')
-        .eq('participant_id', participant.id)
-        .eq('question_id', currentQuestion.id)
-        .eq('attempt_number', attemptNumber)
-        .maybeSingle();
+        .insert({
+          participant_id: participant.id,
+          question_id: currentQuestion.id,
+          attempt_number: attemptNumber,
+          points_earned: points,
+          is_correct: isCorrect,
+          is_skipped: false
+        });
 
-      if (checkError && checkError.code !== 'PGRST116') {
-        console.error('Error checking existing answers:', checkError);
-        throw checkError;
-      }
-
-      let answerSaved = false;
-
-      if (existingAnswer) {
-        console.log('Answer already exists for this attempt, updating it');
-        // Update existing answer
-        const { error: updateError } = await supabase
-          .from('competition_answers')
-          .update({
-            points_earned: points,
-            is_correct: isCorrect,
-            updated_at: new Date().toISOString()
-          })
-          .eq('id', existingAnswer.id);
-
-        if (updateError) {
-          console.error('Answer update error:', updateError);
-          throw updateError;
-        }
-        answerSaved = true;
-      } else {
-        // Insert new answer
-        const { error: insertError } = await supabase
-          .from('competition_answers')
-          .insert({
-            participant_id: participant.id,
-            question_id: currentQuestion.id,
-            attempt_number: attemptNumber,
-            points_earned: points,
-            is_correct: isCorrect,
-            is_skipped: false
-          });
-
-        if (insertError) {
-          console.error('Answer insert error:', insertError);
-          // If insert fails due to duplicate, try to continue anyway
-          if (insertError.code === '23505') {
-            console.log('Duplicate key error, treating as already answered');
-            answerSaved = true;
-          } else {
-            throw insertError;
-          }
+      if (insertError) {
+        console.error('Answer insert error:', insertError);
+        // If duplicate key error, just log and continue (user already answered)
+        if (insertError.code === '23505' || insertError.message?.includes('duplicate')) {
+          console.log('Answer already exists, continuing anyway');
         } else {
-          answerSaved = true;
+          // For other errors, still continue but log them
+          console.error('Non-duplicate error, but continuing:', insertError);
         }
+      } else {
+        console.log('Answer saved successfully');
       }
-
-      console.log('Answer saved/updated successfully');
 
       if (isCorrect) {
-        // Check if participant already has points for this question (prevents duplicate scoring)
-        const { data: correctAnswers, error: correctCheckError } = await supabase
-          .from('competition_answers')
-          .select('points_earned')
-          .eq('participant_id', participant.id)
-          .eq('question_id', currentQuestion.id)
-          .eq('is_correct', true);
-
-        if (correctCheckError) {
-          console.error('Error checking correct answers:', correctCheckError);
-        }
-
-        // Calculate if we need to add points or if they were already awarded
-        let pointsToAdd = points;
-        if (correctAnswers && correctAnswers.length > 1) {
-          // Multiple correct answers exist, sum up existing points
-          const existingPoints = correctAnswers.reduce((sum, ans) => sum + (ans.points_earned || 0), 0);
-          // Only add the difference if current points are higher
-          pointsToAdd = Math.max(0, points - (existingPoints - points));
-          console.log('Duplicate correct answer detected, adjusting points:', { existingPoints, pointsToAdd });
-        }
-
-        // Update participant score
-        const newScore = participant.total_score + pointsToAdd;
+        // Update participant score - always add points for correct answer
+        const newScore = participant.total_score + points;
         
         // Calculate next question: if current question answered is >= participant.current_question,
         // move to the next question. Otherwise, keep current_question as is (answering old questions)
@@ -640,9 +580,23 @@ export default function CompetitionGame({ participant, onScoreUpdate, onParticip
       console.error('Question ID:', currentQuestion?.id);
       console.error('Attempt Number:', attemptNumber);
       
-      // Show specific error message
-      const errorMessage = error instanceof Error ? error.message : 'Failed to submit answer. Please try again.';
-      setFeedback({ type: 'error', message: errorMessage });
+      // Don't block user - show error briefly then continue
+      const errorMessage = error instanceof Error ? error.message : 'Error submitting answer';
+      setFeedback({ type: 'error', message: errorMessage + '. Continuing anyway...' });
+      
+      // Continue video after brief pause
+      setTimeout(() => {
+        setShowQuestion(false);
+        setAnswer('');
+        setAttemptNumber(1);
+        setFeedback(null);
+        
+        const video = videoRef.current;
+        if (video) {
+          video.play();
+          setIsVideoPlaying(true);
+        }
+      }, 2000);
     }
   };
 
