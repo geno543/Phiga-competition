@@ -51,6 +51,21 @@ export default function CompetitionGame({ participant, onScoreUpdate, onParticip
   const [showLeaderboard, setShowLeaderboard] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date());
 
+  // Check if competition is closed and redirect
+  useEffect(() => {
+    const COMPETITION_CLOSED = true; // Set to false to reopen competition
+    
+    if (COMPETITION_CLOSED) {
+      console.log('Competition is closed, redirecting to home');
+      // Clear session and redirect
+      localStorage.removeItem('competition_participant_id');
+      localStorage.removeItem('competition_participant_email');
+      localStorage.removeItem('competition_participant_name');
+      window.location.href = '/';
+      return;
+    }
+  }, []);
+
   // Refresh participant data from database on mount (handles page reloads)
   useEffect(() => {
     const refreshParticipantData = async () => {
