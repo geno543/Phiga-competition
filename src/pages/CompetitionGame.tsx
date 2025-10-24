@@ -302,16 +302,22 @@ export default function CompetitionGame({ participant, onScoreUpdate, onParticip
       return;
     }
 
+    console.log('Submitting answer:', numericAnswer, 'for question', currentQuestion.question_number);
+
     try {
       // Check if answer is correct (within tolerance)
       const tolerance = (currentQuestion.tolerance_percentage / 100) * currentQuestion.correct_answer;
       const isCorrect = Math.abs(numericAnswer - currentQuestion.correct_answer) <= tolerance;
+      
+      console.log('Answer check:', { isCorrect, tolerance, correctAnswer: currentQuestion.correct_answer });
       
       // Calculate points based on attempt number
       let points = 0;
       if (isCorrect) {
         points = Math.max(0, 6 - attemptNumber); // 5,4,3,2,1,0 points
       }
+
+      console.log('Points earned:', points, 'on attempt', attemptNumber);
 
       // Save answer to database
       const { error: answerError } = await supabase
@@ -515,12 +521,16 @@ export default function CompetitionGame({ participant, onScoreUpdate, onParticip
   const skipQuestion = async () => {
     if (!currentQuestion) return;
 
+    console.log('Skipping question:', currentQuestion.question_number);
+
     try {
       // Apply skip penalty if over limit
       let penaltyPoints = 0;
       if (participant.questions_skipped >= 3) {
         penaltyPoints = -1;
       }
+
+      console.log('Skip penalty:', penaltyPoints, 'Skip count:', participant.questions_skipped);
 
       // Save skip record
       const { error: answerError } = await supabase
@@ -534,12 +544,17 @@ export default function CompetitionGame({ participant, onScoreUpdate, onParticip
           is_skipped: true
         });
 
-      if (answerError) throw answerError;
+      if (answerError) {
+        console.error('Error saving skip record:', answerError);
+        throw answerError;
+      }
 
       // Update participant
       const newScore = participant.total_score + penaltyPoints;
       const nextQuestion = participant.current_question + 1;
       const newSkipCount = participant.questions_skipped + 1;
+
+      console.log('Updating participant:', { newScore, nextQuestion, newSkipCount });
 
       const { error: updateError } = await supabase
         .from('competition_participants')
@@ -551,7 +566,12 @@ export default function CompetitionGame({ participant, onScoreUpdate, onParticip
         })
         .eq('id', participant.id);
 
-      if (updateError) throw updateError;
+      if (updateError) {
+        console.error('Error updating participant:', updateError);
+        throw updateError;
+      }
+
+      console.log('Skip successful, moving to question', nextQuestion);
 
       // Check if competition is completed
       if (nextQuestion > 23) {
@@ -628,7 +648,10 @@ export default function CompetitionGame({ participant, onScoreUpdate, onParticip
 
     } catch (error) {
       console.error('Error skipping question:', error);
-      setFeedback({ type: 'error', message: 'Failed to skip question' });
+      console.error('Error details:', JSON.stringify(error, null, 2));
+      console.error('Participant ID:', participant?.id);
+      console.error('Question ID:', currentQuestion?.id);
+      setFeedback({ type: 'error', message: 'Failed to skip question. Please try again.' });
     }
   };
 
