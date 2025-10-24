@@ -23,6 +23,7 @@ const Competition: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [currentTime, setCurrentTime] = useState(new Date());
+  const [showGuideVideo, setShowGuideVideo] = useState(false);
 
   // Authentication form state
   const [email, setEmail] = useState('');
@@ -33,6 +34,12 @@ const Competition: React.FC = () => {
 
   useEffect(() => {
     checkExistingSession();
+    
+    // Check if user has seen the guide video
+    const hasSeenGuide = localStorage.getItem('competition_guide_seen');
+    if (!hasSeenGuide) {
+      setShowGuideVideo(true);
+    }
     
     // Update current time every second for countdown
     const timer = setInterval(() => {
@@ -191,6 +198,57 @@ const Competition: React.FC = () => {
     setDisplayName('');
     setError('');
   };
+
+  const handleCloseGuide = () => {
+    localStorage.setItem('competition_guide_seen', 'true');
+    setShowGuideVideo(false);
+  };
+
+  // Video Guide Modal
+  if (showGuideVideo) {
+    return (
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm">
+        <div className="max-w-4xl w-full mx-4">
+          <div className="bg-white dark:bg-phiga-dark rounded-2xl shadow-2xl overflow-hidden">
+            <div className="bg-gradient-to-r from-phiga-main to-phiga-accent p-6">
+              <h2 className="text-3xl font-bold text-white text-center">
+                Welcome to PHIGA Competition!
+              </h2>
+              <p className="text-white/90 text-center mt-2">
+                Watch this quick guide to understand how the competition works
+              </p>
+            </div>
+            
+            <div className="p-6">
+              <div style={{position:'relative', paddingTop:'56.25%'}}>
+                <iframe 
+                  src="https://iframe.mediadelivery.net/embed/517516/bf692f7c-825a-4d65-87c3-6069a7e222ad?autoplay=true&loop=false&muted=false&preload=true&responsive=true" 
+                  loading="lazy" 
+                  style={{border:0, position:'absolute', top:0, height:'100%', width:'100%'}} 
+                  allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;" 
+                  allowFullScreen={true}
+                  title="Competition Guide Video"
+                />
+              </div>
+              
+              <div className="mt-6 flex justify-center">
+                <button
+                  onClick={handleCloseGuide}
+                  className="bg-phiga-main hover:bg-phiga-dark text-white px-8 py-3 rounded-lg font-semibold transition-all duration-200 transform hover:scale-105"
+                >
+                  I'm Ready - Let's Start!
+                </button>
+              </div>
+              
+              <p className="text-center text-sm text-phiga-dark/60 dark:text-phiga-light/60 mt-4">
+                You can watch this guide again anytime from the help section
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   // Login Form
   if (!isAuthenticated) {
