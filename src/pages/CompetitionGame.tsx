@@ -559,7 +559,10 @@ export default function CompetitionGame({ participant, onScoreUpdate, onParticip
       console.error('Participant ID:', participant?.id);
       console.error('Question ID:', currentQuestion?.id);
       console.error('Attempt Number:', attemptNumber);
-      setFeedback({ type: 'error', message: 'Failed to submit answer' });
+      
+      // Show specific error message
+      const errorMessage = error instanceof Error ? error.message : 'Failed to submit answer. Please try again.';
+      setFeedback({ type: 'error', message: errorMessage });
     }
   };
 
@@ -705,7 +708,10 @@ export default function CompetitionGame({ participant, onScoreUpdate, onParticip
       console.error('Error details:', JSON.stringify(error, null, 2));
       console.error('Participant ID:', participant?.id);
       console.error('Question ID:', currentQuestion?.id);
-      setFeedback({ type: 'error', message: 'Failed to skip question. Please try again.' });
+      
+      // Show specific error message
+      const errorMessage = error instanceof Error ? error.message : 'Failed to skip question. Please try again.';
+      setFeedback({ type: 'error', message: errorMessage });
     }
   };
 
