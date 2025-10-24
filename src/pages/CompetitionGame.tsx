@@ -403,7 +403,7 @@ export default function CompetitionGame({ participant, onScoreUpdate, onParticip
         }
 
         // Check if competition is completed
-        if (nextQuestion > 23) {
+        if (nextQuestion > 22) {
           setFeedback({ 
             type: 'success', 
             message: `Correct! +${points} points. Congratulations! You've completed all questions!` 
@@ -494,7 +494,7 @@ export default function CompetitionGame({ participant, onScoreUpdate, onParticip
           }
 
           // Check if competition is completed
-          if (nextQuestion > 23) {
+          if (nextQuestion > 22) {
             setFeedback({ 
               type: 'error', 
               message: `Incorrect. Correct answer: ${currentQuestion.correct_answer}. Congratulations! You've completed all questions!` 
@@ -645,7 +645,7 @@ export default function CompetitionGame({ participant, onScoreUpdate, onParticip
       console.log('Skip successful, moving to question', nextQuestion);
 
       // Check if competition is completed
-      if (nextQuestion > 23) {
+      if (nextQuestion > 22) {
         const penaltyMessage = penaltyPoints < 0 ? ` (${penaltyPoints} penalty)` : '';
         setFeedback({ 
           type: 'info', 
@@ -849,7 +849,7 @@ export default function CompetitionGame({ participant, onScoreUpdate, onParticip
               <div className="text-right">
                 <div className="text-2xl font-bold text-phiga-accent">{participant.total_score} pts</div>
                 <div className="text-sm text-phiga-light/70">
-                  Question {participant.current_question}/23 | Skips: {participant.questions_skipped}
+                  Question {participant.current_question}/22 | Skips: {participant.questions_skipped}
                 </div>
               </div>
             </div>
